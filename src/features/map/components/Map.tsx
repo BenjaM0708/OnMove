@@ -27,7 +27,7 @@ function Map() {
 
   //GetRides to the Map
 
-  const { getNearRide }: any = useGetNearRide()
+  const nearRideData : any = useGetNearRide()
 
   /*this is the getNearRide object
     car_ride_id: bigint
@@ -68,7 +68,7 @@ function Map() {
   }, [])
 
   //InfoWindow
-  const [showInfo, setShowInfo] = React.useState(false)
+  const [showInfoSelected, setShowInfoSelected] = React.useState<{lat:number, lng:number} | null>(null)
   
   return isLoaded ? (
     <>
@@ -87,7 +87,6 @@ function Map() {
         <Marker //User Position
         position={center}
         title='Current Location'
-        onClick={() => setShowInfo(true)}
         icon={{
           path: window.google.maps.SymbolPath.CIRCLE,
           fillColor: "#4285F4",    
@@ -97,10 +96,28 @@ function Map() {
           strokeWeight: 2,  
               }}
         />
-        {showInfo && <InfoWindow
-          position={center}
-          onCloseClick={() => {setShowInfo(false)}
-          }
+
+        //CarRide Position
+
+        {nearRideData.map((nearRide: any) => (
+          <Marker
+          key={nearRide.car_ride_id}
+          onClick={() => setShowInfoSelected({
+            lat:nearRide.origin_location_lat,
+            lng:nearRide.origin_location_long
+          })}
+          title={`${nearRide.driver_nam}'s Ride`}
+          position={{
+            lat:nearRide.origin_location_lat,
+            lng:nearRide.origin_location_long
+          }}
+          />
+        ))}
+
+        {showInfoSelected ? (<InfoWindow
+          position={showInfoSelected}
+          /*onCloseClick={() => {setShowInfoSelected(null)}
+          }*/
           options={{
             headerDisabled:true,
             headerContent:'You',
@@ -109,17 +126,17 @@ function Map() {
         >
           <div className='text-center'>
             <div className="flex justify-between items-center m-1">
-              <h2 className='text-zinc-950'>Title</h2>
-              <button onClick={() => setShowInfo(false)} className='text-gray-700 text-xl font-bold self-start'>x</button>
+              <h2 className='text-zinc-950'>Ride</h2>
+              <button onClick={() => setShowInfoSelected(null)} className='text-gray-700 text-xl font-bold self-start'>x</button>
             </div>
           This is your location lat:{center.lat} and long:{center.lng}
           </div>
-        </InfoWindow>
-        }
+        </InfoWindow>) : null}
+
       </GoogleMap>
     </>
   ) : (
-    <>Loading...</>
+    <><h2 className='text-center'>Loading...</h2></>
   )
 }
 
