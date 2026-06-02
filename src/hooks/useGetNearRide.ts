@@ -30,8 +30,6 @@ interface NearRideData extends NearRideInfo {
     destination_location_lat: string;
 }
 
-interface FunctionTest { (): Promise<void> }
-
 export const useGetNearRide = () => {
     const [nearRides, setNearRides] = useState<NearRideData[]>([])
 

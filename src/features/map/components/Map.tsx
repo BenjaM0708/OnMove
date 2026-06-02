@@ -68,8 +68,8 @@ function Map() {
   }, [])
 
   //InfoWindow
-  const [showInfoSelected, setShowInfoSelected] = React.useState<{lat:number, lng:number} | null>(null)
-  
+  const [infoSelected, setInfoSelected] = React.useState< any | null>(null)
+  console.log(center)
   return isLoaded ? (
     <>
     
@@ -85,7 +85,7 @@ function Map() {
         }}
       >
         <Marker //User Position
-        position={center}
+        position={center} 
         title='Current Location'
         icon={{
           path: window.google.maps.SymbolPath.CIRCLE,
@@ -102,10 +102,7 @@ function Map() {
         {nearRideData.map((nearRide: any) => (
           <Marker
           key={nearRide.car_ride_id}
-          onClick={() => setShowInfoSelected({
-            lat:nearRide.origin_location_lat,
-            lng:nearRide.origin_location_long
-          })}
+          onClick={() => setInfoSelected(nearRide)}
           title={`${nearRide.driver_nam}'s Ride`}
           position={{
             lat:nearRide.origin_location_lat,
@@ -114,22 +111,28 @@ function Map() {
           />
         ))}
 
-        {showInfoSelected ? (<InfoWindow
-          position={showInfoSelected}
-          /*onCloseClick={() => {setShowInfoSelected(null)}
-          }*/
+        {infoSelected ? (<InfoWindow
+          position={{
+            lat:infoSelected.origin_location_lat,
+            lng:infoSelected.origin_location_long
+          }}
           options={{
             headerDisabled:true,
-            headerContent:'You',
-            maxWidth:200
+            maxWidth:250
           }}
         >
-          <div className='text-center'>
+          <div className='flex flex-col'>
             <div className="flex justify-between items-center m-1">
-              <h2 className='text-zinc-950'>Ride</h2>
-              <button onClick={() => setShowInfoSelected(null)} className='text-gray-700 text-xl font-bold self-start'>x</button>
+              <h2 className='text-zinc-950'>{infoSelected.driver_name}'s Ride</h2>
+              <button onClick={() => setInfoSelected(null)} className='text-gray-700 text-xl font-bold self-start p-1'>x</button>
             </div>
-          This is your location lat:{center.lat} and long:{center.lng}
+            <div className='flex flex-col mx-1 text-left text-black font-normal'>
+              <p><span className='font-bold text-yellow-400'>Origin</span>: {infoSelected.origin_description}</p>
+              <p><span className='font-bold text-yellow-400'>Destination</span>: {infoSelected.destination_description}</p>
+              <p><span className='font-bold text-yellow-400'>Free Seats</span>: {infoSelected.free_seats}</p>
+              <p><span className='font-bold text-yellow-400'>Date</span>:{new Date(infoSelected.origin_datetime).toLocaleDateString()}</p> 
+              <p><span className='font-bold text-yellow-400'>Time</span>: {new Date(infoSelected.origin_datetime).toLocaleTimeString()}</p>
+            </div>
           </div>
         </InfoWindow>) : null}
 
