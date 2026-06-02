@@ -34,7 +34,6 @@ interface FunctionTest { (): Promise<void> }
 
 export const useGetNearRide = () => {
     const [nearRides, setNearRides] = useState<NearRideData[]>([])
-    const [nearRidesFunction, setNearRidesFunction] = useState<FunctionTest>()
 
         useEffect(() => {
             async function fetchNearRides(): Promise<void> {
@@ -57,13 +56,10 @@ export const useGetNearRide = () => {
     
             }
     
-            setNearRidesFunction(fetchNearRides)
+            fetchNearRides()
         }, [])
-
-    return {
-        nearRides,
-        nearRidesFunction
-    }
+        
+    return nearRides;
 }
 
 
