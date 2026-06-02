@@ -124,7 +124,7 @@ function Map() {
           <div className='flex flex-col'>
             <div className="flex justify-between items-center m-1">
               <h2 className='text-zinc-950'>{infoSelected.driver_name}'s Ride</h2>
-              <button onClick={() => setInfoSelected(null)} className='text-gray-700 text-xl font-bold self-start p-1'>x</button>
+              <button onClick={() => setInfoSelected(null)} className='text-gray-700 text-lg font-bold self-start ml-2 mb-1 hover:text-gray-600'>x</button>
             </div>
             <div className='flex flex-col mx-1 text-left text-black font-normal'>
               <p><span className='font-bold text-yellow-400'>Origin</span>: {infoSelected.origin_description}</p>
@@ -133,6 +133,7 @@ function Map() {
               <p><span className='font-bold text-yellow-400'>Date</span>:{new Date(infoSelected.origin_datetime).toLocaleDateString()}</p> 
               <p><span className='font-bold text-yellow-400'>Time</span>: {new Date(infoSelected.origin_datetime).toLocaleTimeString()}</p>
             </div>
+            <button className='flex self-center justify-center bg-gray-900 hover:bg-gray-800 my-2 text-xl text-white rounded-sm shadow-sm w-2/3 font-semibold'>Join</button>
           </div>
         </InfoWindow>) : null}
 
