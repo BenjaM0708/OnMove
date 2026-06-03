@@ -12,5 +12,5 @@ export default defineConfig({
       'react-dom': path.resolve(__dirname, './node_modules/react-dom'),
     },
   },
-
+  base: '/OnMove/',
 })
