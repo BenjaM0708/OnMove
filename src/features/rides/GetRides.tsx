@@ -30,7 +30,7 @@ interface CarRideData extends CarRideInfo {
     destination_location_lat: string;
 }
 
-export default function Call() {
+export default function GetRides() {
     const [carRides, setCarRides] = useState<CarRideData[]>([])
 
     useEffect(() => {

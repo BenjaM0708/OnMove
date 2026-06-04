@@ -5,7 +5,7 @@ function Navbar() {
 
   const [scrolledNavbar, setScrolledNavbar] = useState(false)
   const pathLocation = useLocation()
-  const isHome = pathLocation.pathname === "/" //Es un booleano
+  const isHome = pathLocation.pathname === "/" //This is a boolean
 
   const theme = {
     nav: isHome ? "bg-brand-cream/90 border-b border-gray-100" : "bg-brand-dark border-b border-brand-dark",
