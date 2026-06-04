@@ -33,18 +33,18 @@ function Navbar() {
       <div className="max-w-6xl mx-auto px-6 py-2 flex items-center justify-between">
 
         <Link to="/" className={`font-display text-2xl font-bold ${theme.logo}`}>
-          Juicify
+          OnMove
         </Link>
 
         <div className="hidden md:flex items-center gap-8">
-          <Link to="/features" className={`text-sm transition-colors ${theme.text}`}>
-            Beneficios
+          <Link to="/home" className={`text-sm transition-colors ${theme.text}`}>
+            Home
           </Link>
-          <Link to="/recipes" className={`text-sm transition-colors ${theme.text}`}>
-            Recetas
+          <Link to="/map_page" className={`text-sm transition-colors ${theme.text}`}>
+            Map
           </Link>
-          <Link to="/builder" className={`text-sm px-5 py-2 rounded-full transition-colors ${theme.button}`}>
-            Crear zumo
+          <Link to="/about" className={`text-sm px-5 py-2 rounded-full transition-colors ${theme.button}`}>
+            About
           </Link>
         </div>
 
