@@ -96,8 +96,8 @@ function Map() {
           strokeWeight: 2,  
               }}
         />
-
-        //CarRide Position
+        
+        <h2 className='text-center'>Loading...</h2>
 
         {nearRideData.map((nearRide: any) => (
           <Marker
