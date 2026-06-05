@@ -37,8 +37,94 @@ export default function PostRide(){
                     </div>
                 </div>
             </div>
+
+            {/* Columna derecha - Formulario */}
+            <form onSubmit={han} className="flex flex-col gap-5">
+
+                <div className="flex flex-col gap-1">
+                    <label className="text-sm font-medium text-brand-dark">
+                    Your name
+                    </label>
+                    <input
+                    type="text"
+                    name="name"
+                    required
+                    placeholder="Benji"
+                    className="border border-brand-dark/20 rounded-md px-4 py-3 text-sm text-brand-dark bg-white focus:outline-none focus:border-brand-navy transition-colors"
+                    />
+                </div>
+
+                <div className="flex flex-col gap-1">
+                    <label className="text-sm font-medium text-brand-dark">
+                    Contact
+                    </label>
+                    <input
+                    type="tel"
+                    name="contact"
+                    required
+                    placeholder="+34 600 000 000"
+                    className="border border-brand-dark/20 rounded-md px-4 py-3 text-sm text-brand-dark bg-white focus:outline-none focus:border-brand-navy transition-colors"
+                    />
+                </div>
+
+                <div className="flex flex-col gap-1">
+                    <label className="text-sm font-medium text-brand-dark">
+                    Contact
+                    </label>
+                    <input
+                    type="text"
+                    name="origin"
+                    required
+                    placeholder="Puerta de Toledo"
+                    className="border border-brand-dark/20 rounded-md px-4 py-3 text-sm text-brand-dark bg-white focus:outline-none focus:border-brand-navy transition-colors"
+                    />
+                </div>
+
+                <div className="flex flex-col gap-1">
+                    <label className="text-sm font-medium text-brand-dark">
+                    Destination
+                    </label>
+                    <input
+                    type="text"
+                    name="destination"
+                    required
+                    placeholder="Gran Vía"
+                    className="border border-brand-dark/20 rounded-md px-4 py-3 text-sm text-brand-dark bg-white focus:outline-none focus:border-brand-navy transition-colors"
+                    />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">    
+                    <div className="flex flex-col gap-1">
+                        <label className="text-sm font-medium text-brand-dark">
+                        Time
+                        </label>
+                        <input
+                        type="datetime-local"
+                        name="time"
+                        required
+                        className="border border-brand-dark/20 rounded-md px-4 py-3 text-sm text-brand-dark bg-white focus:outline-none focus:border-brand-navy transition-colors"
+                        />
+                    </div>
+
+                    <div className="flex flex-col gap-1">
+                        <label className="text-sm font-medium text-brand-dark">
+                        Available Seast
+                        </label>
+                        <input
+                        type="number"
+                        name="seat"
+                        required
+                        placeholder="3"
+                        className="border border-brand-dark/20 rounded-md px-4 py-3 text-sm text-brand-dark bg-white focus:outline-none focus:border-brand-navy transition-colors"
+                        />
+                    </div>
+                </div>
+
+
+
+            </form>
             
-            <form onSubmit={han}>
+            {/*<form onSubmit={han}>
                 <label>Name: <input type="text" name="name" required/></label>
                 <label>Contact: <input type="tel" name="contact" required/></label>
                 <label>Origin: <input type="text" name="origin" required/></label>
@@ -46,7 +132,7 @@ export default function PostRide(){
                 <label>Time: <input type="datetime-local" name="time" required/></label>
                 <label>Seats: <input type="number" name="seat" required/></label>
                 <button type="submit">Join</button>
-                </form>
+                </form>*/}
           </div>
         </div>
     )
