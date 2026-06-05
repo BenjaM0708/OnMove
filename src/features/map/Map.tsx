@@ -54,18 +54,29 @@ function Map() {
   const center = coordinates || defaultCenter
 
   const [map, setMap] = React.useState(null)
+  const [coordOnClick, setCoordOnClick] = React.useState({lat: null, lng: null})
 
   const onLoad = React.useCallback(function callback(map: any) {
     
     const bounds = new window.google.maps.LatLngBounds(center)
-  //  map.fitBounds(bounds. Change in future
-
+    //map.fitBounds(bounds)
     setMap(map)
   }, [center])
 
   const onUnmount = React.useCallback(function callback(map: any) {
     setMap(null)
   }, [])
+
+  const onClick = React.useCallback(function callback(event: any) {
+     const lat = event.latLng?.lat()
+     const lng = event.latLng?.lng()
+
+    if(lat === undefined || lng === undefined) return
+
+     setCoordOnClick({lat, lng})
+     console.log("Click's coordinates", lat, lng)
+  }, [])
+
 
   //InfoWindow
   const [infoSelected, setInfoSelected] = React.useState< any | null>(null)
@@ -79,9 +90,12 @@ function Map() {
         zoom={13.5}
         onLoad={onLoad}
         onUnmount={onUnmount}
+        onClick={onClick}
         options={{
           disableDefaultUI: true,
-          zoomControl: true
+          zoomControl: true,
+          draggableCursor:"default",
+          draggingCursor: 'grabbing'
         }}
       >
         <Marker //User Position
@@ -96,8 +110,6 @@ function Map() {
           strokeWeight: 2,  
               }}
         />
-        
-        <h2 className='text-center'>Loading...</h2>
 
         {nearRideData.map((nearRide: any) => (
           <Marker

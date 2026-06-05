@@ -19,19 +19,19 @@ export default function PostRide(){
                     <h1 className="font-display text-4xl font-semibold text-brand-navy leading-tight">
                         Post a Ride
                     </h1>
-                    <p className="text-brand-dark/70 text-base leading-relaxed">
+                    <p className="text-brand-dark/90 text-base leading-relaxed">
                         Share your route and let others join you. Fill in the details and we'll match you with people heading the same way.
                     </p>
                     <div className="flex flex-col gap-2 mt-4">
-                        <div className="flex items-center gap-3 text-brand-dark/60 text-sm">
+                        <div className="flex items-center gap-3 text-brand-dark/90 text-sm">
                         <span className="w-2 h-2 rounded-full bg-brand-gold" />
                         Define your origin and destination
                         </div>
-                        <div className="flex items-center gap-3 text-brand-dark/60 text-sm">
+                        <div className="flex items-center gap-3 text-brand-dark/90 text-sm">
                         <span className="w-2 h-2 rounded-full bg-brand-gold" />
                         Set the date and available seats
                         </div>
-                        <div className="flex items-center gap-3 text-brand-dark/60 text-sm">
+                        <div className="flex items-center gap-3 text-brand-dark/90 text-sm">
                         <span className="w-2 h-2 rounded-full bg-brand-gold" />
                         Other users will be able to join
                     </div>
@@ -62,14 +62,15 @@ export default function PostRide(){
                     type="tel"
                     name="contact"
                     required
-                    placeholder="+34 600 000 000"
+                    placeholder="600 000 000"
+                    pattern="[0-9]{3} [0-9]{3} [0-9]{3}"
                     className="border border-brand-dark/20 rounded-md px-4 py-3 text-sm text-brand-dark bg-white focus:outline-none focus:border-brand-navy transition-colors"
                     />
                 </div>
 
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-1 relative">
                     <label className="text-sm font-medium text-brand-dark">
-                    Contact
+                    Origin
                     </label>
                     <input
                     type="text"
@@ -120,19 +121,13 @@ export default function PostRide(){
                     </div>
                 </div>
 
-
+                <button
+                    type="submit"
+                    className="mt-2 bg-brand-navy text-brand-light font-medium text-sm py-3 px-6 rounded-md hover:bg-brand-navy/80 transition-colors">
+                    Post Ride
+                </button>
 
             </form>
-            
-            {/*<form onSubmit={han}>
-                <label>Name: <input type="text" name="name" required/></label>
-                <label>Contact: <input type="tel" name="contact" required/></label>
-                <label>Origin: <input type="text" name="origin" required/></label>
-                <label>Destination: <input type="text" name="destination" required/></label>
-                <label>Time: <input type="datetime-local" name="time" required/></label>
-                <label>Seats: <input type="number" name="seat" required/></label>
-                <button type="submit">Join</button>
-                </form>*/}
           </div>
         </div>
     )
