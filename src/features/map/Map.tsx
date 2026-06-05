@@ -6,7 +6,7 @@ import { useGetNearRide } from '../../hooks/useGetNearRide'
 // Use a loose type for libraries to avoid mismatches with @react-google-maps/api Library type
 const libraries: any[] = ['places']
 
-const containerStyle = { width: '100%', height: '600px' }
+const containerStyle = { width: '90%', height: '700px' }
 const defaultCenter = { lat: 40.4169, lng: -3.7033 }
 
 
