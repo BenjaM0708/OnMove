@@ -54,8 +54,10 @@ function Map() {
   const center = coordinates || defaultCenter
 
   const [map, setMap] = React.useState(null)
-  const [coordOnClick, setCoordOnClick] = React.useState<{lat: number, lng: number} | null>(null)
 
+  //Data from click
+  const [coordOnClick, setCoordOnClick] = React.useState<{lat: number, lng: number} | null>(null)
+  //
   const onLoad = React.useCallback(function callback(map: any) {
     
     const bounds = new window.google.maps.LatLngBounds(center)
@@ -67,7 +69,8 @@ function Map() {
     setMap(null)
   }, [])
 
-  const onClick = React.useCallback(function callback(event: any) {
+  //Data from click
+  const onClick = React.useCallback(function callback(event: google.maps.MapMouseEvent /* | any */) {
      const lat = event.latLng?.lat()
      const lng = event.latLng?.lng()
 
@@ -76,11 +79,14 @@ function Map() {
      setCoordOnClick({lat, lng})
      console.log("Click's coordinates", lat, lng)
   }, [])
+  //
 
-
-  //InfoWindow
+  //InfoWindow Controllers
   const [infoSelected, setInfoSelected] = React.useState< any | null>(null)
-  console.log(center)
+  const [closeCoordOnClick, setCloseCoordOnClick] = React.useState< any | null>(null)
+
+  //Map Render
+
   return isLoaded ? (
     <>
     
@@ -124,9 +130,36 @@ function Map() {
         ))}
 
         {coordOnClick && (
-          <Marker
-            position={coordOnClick}
-          />
+          <>
+            <Marker
+              position={coordOnClick}
+              onClick={()=> setCloseCoordOnClick(true)}
+            />
+
+            {closeCoordOnClick ? <InfoWindow
+              position={coordOnClick}
+              onCloseClick={() => setCloseCoordOnClick(null)}
+            >
+              <button>Add</button>
+            </InfoWindow> : null
+            }
+
+            {/* Variant ithout callBack and head
+              <Marker
+              position={coordOnClick}
+              />
+
+              <InfoWindow
+              position={coordOnClick}
+              options={{
+                headDisable:true
+              }}
+              >
+              <button>Add</button>
+              </InfoWindow>
+            
+            */}
+          </>
         )}
 
         {infoSelected ? (<InfoWindow
