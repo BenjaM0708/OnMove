@@ -43,7 +43,7 @@ function Navbar() {
           <Link to="/map_page" className={`text-sm transition-colors ${theme.text}`}>
             Map
           </Link>
-          <Link to='/post_ride' className={`text-sm transition-colors ${theme.text}`}>
+          <Link to='/rides' className={`text-sm transition-colors ${theme.text}`}>
             Rides
           </Link>
           <Link to="/about" className={`text-sm px-5 py-2 rounded-full transition-colors ${theme.button}`}>
