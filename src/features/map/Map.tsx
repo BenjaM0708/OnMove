@@ -54,7 +54,7 @@ function Map() {
   const center = coordinates || defaultCenter
 
   const [map, setMap] = React.useState(null)
-  const [coordOnClick, setCoordOnClick] = React.useState({lat: null, lng: null})
+  const [coordOnClick, setCoordOnClick] = React.useState<{lat: number, lng: number} | null>(null)
 
   const onLoad = React.useCallback(function callback(map: any) {
     
@@ -122,6 +122,12 @@ function Map() {
           }}
           />
         ))}
+
+        {coordOnClick && (
+          <Marker
+            position={coordOnClick}
+          />
+        )}
 
         {infoSelected ? (<InfoWindow
           position={{
