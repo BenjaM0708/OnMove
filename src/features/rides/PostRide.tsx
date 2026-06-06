@@ -14,7 +14,7 @@ export default function PostRide(){
           <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-start py-16">
             
             {/* Columna izquierda */}
-            <div className="flex flex-col gap-6 sticky top-24">
+            <div className="flex flex-col gap-6">
                 <div className="w-12 h-1 bg-brand-gold rounded-full">&nbsp;</div>
                     <h1 className="font-display text-4xl font-semibold text-brand-navy leading-tight">
                         Post a Ride
