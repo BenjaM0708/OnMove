@@ -26,9 +26,12 @@ export default function PostRide(){
         console.log(Object.fromEntries(formData))
     }
 
-    useEffect(() => {
+    console.log(submitdEvent)
 
-    }, [setSubmitdEvent])
+    useEffect(() => {
+        setSubmitdEvent(false)
+        //contador
+    }, [submitdEvent])
 
 
 /*(driver_name, driver_contact_details, origin_location, destination_location, origin_datetime, origin_description, destination_description, free_seats)
