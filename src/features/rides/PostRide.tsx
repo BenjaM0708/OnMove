@@ -20,10 +20,14 @@ export default function PostRide(){
 
     const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const form = e.currentTarget
-        const formData = new FormData(form)
-        setSubmitdEvent(true)
+        const formData = new FormData(e.currentTarget)
+        const data: RidePost ={
+          driver_name:'',
+          driver_contact_details:'',
+        }
+
         console.log(Object.fromEntries(formData))
+        setSubmitdEvent(true)
     }
 
     console.log(submitdEvent)
