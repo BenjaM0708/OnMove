@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import FormPost from '../../components/FormPost'
+import { Database } from '../../types/types';
 
-interface RidePost {
+type RidePostType = Database['public']['Tables']['car_ride']['Insert']
+/*
+    car_ride_id?: undefined;
     driver_name: string;
     driver_contact_details: string;
     origin_location: string;
@@ -10,36 +13,37 @@ interface RidePost {
     origin_description: string;
     destination_description: string;
     free_seats: number;
-}
+*/
 
 export default function PostRide(){
 
     const [submitdEvent, setSubmitdEvent] = useState(false)
-
-    const [dataSaved, setDataSaved] = useState< RidePost | null >(null)
+    const [dataSaved, setDataSaved] = useState< RidePostType | null>(null)
 
     const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const formData = new FormData(e.currentTarget)
-        const data: RidePost ={
-          driver_name: formData.get("drive_name"),
-          driver_contact_details: formData.get("drive_name"),
-          origin_location: formData.get("drive_name"),
-          destination_location: formData.get("drive_name"),
-          origin_datetime: '',
-          origin_description: '',
-          destination_description: '',
-          free_seats: +'0'
+        const form = e.currentTarget
+        const formData = new FormData(form)
+        const data: RidePostType = {
+          driver_name: formData.get("drive_name") as string,
+          driver_contact_details: formData.get("driver_contact_details") as string,
+          origin_location: formData.get("origin_location") as string,
+          destination_location: formData.get("destination_location") as string,
+          origin_datetime: formData.get("origin_datetime") as string,
+          origin_description: formData.get("origin_description") as string,
+          destination_description: formData.get("destination_description") as string,
+          free_seats: Number(formData.get("free_seats")) as number
         }
 
-        console.log(Object.fromEntries(formData))
+        console.log('This is data:', data)
+        console.log('This is formData:', formData)
         setSubmitdEvent(true)
+        console.log(submitdEvent)
+        setDataSaved(data)
     }
 
-    console.log(submitdEvent)
-
     useEffect(() => {
-        setSubmitdEvent(false)
+        //setSubmitdEvent(false)
         //contador
     }, [submitdEvent])
 
