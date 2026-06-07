@@ -22,8 +22,14 @@ export default function PostRide(){
         e.preventDefault()
         const formData = new FormData(e.currentTarget)
         const data: RidePost ={
-          driver_name:'',
-          driver_contact_details:'',
+          driver_name: formData.get("drive_name"),
+          driver_contact_details: formData.get("drive_name"),
+          origin_location: formData.get("drive_name"),
+          destination_location: formData.get("drive_name"),
+          origin_datetime: '',
+          origin_description: '',
+          destination_description: '',
+          free_seats: +'0'
         }
 
         console.log(Object.fromEntries(formData))
