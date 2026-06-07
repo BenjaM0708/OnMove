@@ -1,7 +1,7 @@
 import React from 'react'
 import { GoogleMap, InfoWindow, Marker, StandaloneSearchBox, useJsApiLoader } from '@react-google-maps/api'
 import { useGeolocation } from '../../hooks/useGeolocation'
-import { useGetNearRide } from '../../hooks/useGetNearRide'
+import { useGetNearRide } from '../../hooks/useGetRides'
 
 // Use a loose type for libraries to avoid mismatches with @react-google-maps/api Library type
 const libraries: any[] = ['places']

@@ -1,134 +1,43 @@
+import React, { useState, useEffect } from 'react'
+import FormPost from '../../components/FormPost'
 
+interface RidePost {
+    driver_name: string;
+    driver_contact_details: string;
+    origin_location: string;
+    destination_location: string;
+    origin_datetime: string;
+    origin_description: string;
+    destination_description: string;
+    free_seats: number;
+}
 
 export default function PostRide(){
 
-    const han = (e:React.FormEvent<HTMLFormElement>) => {
+    const [submitdEvent, setSubmitdEvent] = useState(false)
+
+    const [dataSaved, setDataSaved] = useState< RidePost | null >(null)
+
+    const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const form = e.currentTarget
         const formData = new FormData(form)
+        setSubmitdEvent(true)
         console.log(Object.fromEntries(formData))
     }
 
+    useEffect(() => {
+
+    }, [setSubmitdEvent])
+
+
+/*(driver_name, driver_contact_details, origin_location, destination_location, origin_datetime, origin_description, destination_description, free_seats)
+values
+  ('Mónica', '+34 614 034 806', extensions.st_point(-3.264020460755966, 40.57609116340739), extensions.st_point(3.6969439472696877, 40.41903088870426), '2026-06-03 09:00:00+02', 'Azuqueca de Henares', 'Gran Vía', 3);*/
+
     return(
-        <div className="min-h-screen bg-brand-light pt-24 px-6">
-          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-start py-16">
-            
-            {/* Columna izquierda */}
-            <div className="flex flex-col gap-6">
-                <div className="w-12 h-1 bg-brand-gold rounded-full">&nbsp;</div>
-                    <h1 className="font-display text-4xl font-semibold text-brand-navy leading-tight">
-                        Post a Ride
-                    </h1>
-                    <p className="text-brand-dark/90 text-base leading-relaxed">
-                        Share your route and let others join you. Fill in the details and we'll match you with people heading the same way.
-                    </p>
-                    <div className="flex flex-col gap-2 mt-4">
-                        <div className="flex items-center gap-3 text-brand-dark/90 text-sm">
-                        <span className="w-2 h-2 rounded-full bg-brand-gold" />
-                        Define your origin and destination
-                        </div>
-                        <div className="flex items-center gap-3 text-brand-dark/90 text-sm">
-                        <span className="w-2 h-2 rounded-full bg-brand-gold" />
-                        Set the date and available seats
-                        </div>
-                        <div className="flex items-center gap-3 text-brand-dark/90 text-sm">
-                        <span className="w-2 h-2 rounded-full bg-brand-gold" />
-                        Other users will be able to join
-                    </div>
-                </div>
-            </div>
-
-            {/* Columna derecha - Formulario */}
-            <form onSubmit={han} className="flex flex-col gap-5">
-
-                <div className="flex flex-col gap-1">
-                    <label className="text-sm font-medium text-brand-dark">
-                    Your name
-                    </label>
-                    <input
-                    type="text"
-                    name="name"
-                    required
-                    placeholder="Benji"
-                    className="border border-brand-dark/20 rounded-md px-4 py-3 text-sm text-brand-dark bg-white focus:outline-none focus:border-brand-navy transition-colors"
-                    />
-                </div>
-
-                <div className="flex flex-col gap-1">
-                    <label className="text-sm font-medium text-brand-dark">
-                    Contact
-                    </label>
-                    <input
-                    type="tel"
-                    name="contact"
-                    required
-                    placeholder="600 000 000"
-                    pattern="[0-9]{3} [0-9]{3} [0-9]{3}"
-                    className="border border-brand-dark/20 rounded-md px-4 py-3 text-sm text-brand-dark bg-white focus:outline-none focus:border-brand-navy transition-colors"
-                    />
-                </div>
-
-                <div className="flex flex-col gap-1 relative">
-                    <label className="text-sm font-medium text-brand-dark">
-                    Origin
-                    </label>
-                    <input
-                    type="text"
-                    name="origin"
-                    required
-                    placeholder="Puerta de Toledo"
-                    className="border border-brand-dark/20 rounded-md px-4 py-3 text-sm text-brand-dark bg-white focus:outline-none focus:border-brand-navy transition-colors"
-                    />
-                </div>
-
-                <div className="flex flex-col gap-1">
-                    <label className="text-sm font-medium text-brand-dark">
-                    Destination
-                    </label>
-                    <input
-                    type="text"
-                    name="destination"
-                    required
-                    placeholder="Gran Vía"
-                    className="border border-brand-dark/20 rounded-md px-4 py-3 text-sm text-brand-dark bg-white focus:outline-none focus:border-brand-navy transition-colors"
-                    />
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">    
-                    <div className="flex flex-col gap-1">
-                        <label className="text-sm font-medium text-brand-dark">
-                        Time
-                        </label>
-                        <input
-                        type="datetime-local"
-                        name="time"
-                        required
-                        className="border border-brand-dark/20 rounded-md px-4 py-3 text-sm text-brand-dark bg-white focus:outline-none focus:border-brand-navy transition-colors"
-                        />
-                    </div>
-
-                    <div className="flex flex-col gap-1">
-                        <label className="text-sm font-medium text-brand-dark">
-                        Available Seast
-                        </label>
-                        <input
-                        type="number"
-                        name="seat"
-                        required
-                        placeholder="3"
-                        className="border border-brand-dark/20 rounded-md px-4 py-3 text-sm text-brand-dark bg-white focus:outline-none focus:border-brand-navy transition-colors"
-                        />
-                    </div>
-                </div>
-
-                <button
-                    type="submit"
-                    className="mt-2 bg-brand-navy text-brand-light font-medium text-sm py-3 px-6 rounded-md hover:bg-brand-navy/80 transition-colors">
-                    Post Ride
-                </button>
-
-            </form>
-          </div>
-        </div>
+      <>
+        <FormPost submitFunction={handleSubmit}/>
+      </>
     )
 }
