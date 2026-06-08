@@ -18,9 +18,9 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
                         Share your route and let others join you. Fill in the details and we'll match you with people heading the same way.
                     </p>
                     <div>
-                        /*Note that 'uploadCoordFunction' is just a name to the parameter and prop. In this case
+                        {/*Note that 'uploadCoordFunction' is just a name to the parameter and prop. In this case
                         is the same for both. It coul be change in line 6 renaming the second parameter
-                        and changing in line 22 the prop's name. Both with the same new name*/
+                        and changing in line 22 the prop's name. Both with the same new name*/}
                         <MiniMap uploadCoordFunction={uploadCoordFunction} />
                     </div>
                     <div className="flex flex-col gap-2 mt-4">

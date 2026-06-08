@@ -117,12 +117,14 @@ function MiniMap({ uploadCoordFunction } : {uploadCoordFunction: any }): JSX.Ele
               />
 
               <InfoWindow
-              position={coordOnClick}
-              options={{
-                headerDisabled:true
-              }}
-              >
-              <button onClick={onClickAdd}>Add</button>
+                position={coordOnClick}
+                options={{
+                    headerDisabled:true
+                }}>
+                <button  className="mt-2 bg-brand-navy text-brand-light font-medium text-sm py-2 px-6 ml-1 mb-1 rounded-md hover:bg-brand-navy/80 transition-colors"
+                    onClick={onClickAdd}>
+                    Add
+                </button>
               </InfoWindow>
           </>
         )}
