@@ -1,8 +1,9 @@
 import React, { JSX } from 'react'
+import MiniMap from '../features/map/MiniMap'
 
 type submitFunction = (e: React.FormEvent<HTMLFormElement>) => any
 
-export default function FormPost( { submitFunction } : {submitFunction: submitFunction} ): JSX.Element {
+export default function FormPost({ submitFunction, uploadCoordFunction } : {submitFunction: submitFunction, uploadCoordFunction: any} ): JSX.Element {
     return(
         <div className="min-h-screen bg-brand-light pt-24 px-6">
           <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-start py-16">
@@ -16,6 +17,12 @@ export default function FormPost( { submitFunction } : {submitFunction: submitFu
                     <p className="text-brand-dark/90 text-base leading-relaxed">
                         Share your route and let others join you. Fill in the details and we'll match you with people heading the same way.
                     </p>
+                    <div>
+                        /*Note that 'uploadCoordFunction' is just a name to the parameter and prop. In this case
+                        is the same for both. It coul be change in line 6 renaming the second parameter
+                        and changing in line 22 the prop's name. Both with the same new name*/
+                        <MiniMap uploadCoordFunction={uploadCoordFunction} />
+                    </div>
                     <div className="flex flex-col gap-2 mt-4">
                         <div className="flex items-center gap-3 text-brand-dark/90 text-sm">
                         <span className="w-2 h-2 rounded-full bg-brand-gold" />
@@ -57,7 +64,7 @@ export default function FormPost( { submitFunction } : {submitFunction: submitFu
                     name="contact"
                     required
                     placeholder="600 000 000"
-                    pattern="[0-9]{3} [0-9]{3} [0-9]{3}"
+                    pattern="[0-9]{9}"
                     className="border border-brand-dark/20 rounded-md px-4 py-3 text-sm text-brand-dark bg-white focus:outline-none focus:border-brand-navy transition-colors"
                     />
                 </div>

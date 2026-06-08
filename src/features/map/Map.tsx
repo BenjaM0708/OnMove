@@ -190,7 +190,9 @@ function Map() {
       </GoogleMap>
     </>
   ) : (
-    <><h2 className='text-center'>Loading...</h2></>
+    <div className='flex justify-center items-center'>
+        <h2 className='text-center'>Loading...</h2>
+    </div>
   )
 }
 

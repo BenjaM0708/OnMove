@@ -1,7 +1,5 @@
-import { useState, useEffect } from "react";
 import { supabase } from '../services/supabase'
 import { Database } from "../types/types";
-import { data } from "react-router";
 
 type RideDataPost = Database['public']['Tables']['car_ride']['Insert']
 

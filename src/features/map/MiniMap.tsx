@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { JSX } from 'react'
 import { GoogleMap, InfoWindow, Marker, useJsApiLoader } from '@react-google-maps/api'
 import { useGeolocation } from '../../hooks/useGeolocation'
+
+
 
 const libraries: any[] = ['places']
 
@@ -8,7 +10,7 @@ const containerStyle = { width: '100%', height: '300px' }
 const defaultCenter = { lat: 40.4169, lng: -3.7033 }
 
 
-function MiniMap() {
+function MiniMap({ uploadCoordFunction } : {uploadCoordFunction: any }): JSX.Element {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '',
@@ -44,7 +46,7 @@ function MiniMap() {
   
   const [coordOnClick, setCoordOnClick] = React.useState<{lat: number, lng: number} | null>(null)
 
-  const onClick = React.useCallback(function callback(event: google.maps.MapMouseEvent /* | any */) {
+  const onClickPoint = React.useCallback(function callback(event: google.maps.MapMouseEvent /* | any */) {
      const lat = event.latLng?.lat()
      const lng = event.latLng?.lng()
 
@@ -53,7 +55,11 @@ function MiniMap() {
      setCoordOnClick({lat, lng})
      console.log("Click's coordinates", lat, lng)
   }, [])
-  const [closeCoordOnClick, setCloseCoordOnClick] = React.useState< any | null>(null)
+  
+  //Save coord to upload them
+  const onClickAdd = () => {
+    uploadCoordFunction(coordOnClick)
+  }
 
   //Map Render
 
@@ -66,7 +72,7 @@ function MiniMap() {
         zoom={13.5}
         onLoad={onLoad}
         onUnmount={onUnmount}
-        onClick={onClick}
+        onClick={onClickPoint}
         options={{
           disableDefaultUI: true,
           zoomControl: true,
@@ -89,6 +95,8 @@ function MiniMap() {
 
         {coordOnClick && (
           <>
+            //Variant with callBack and head
+            {/*
             <Marker
               position={coordOnClick}
               onClick={()=> setCloseCoordOnClick(true)}
@@ -101,8 +109,9 @@ function MiniMap() {
               <button>Add</button>
             </InfoWindow> : null
             }
+            */}
 
-            {/* Variant without callBack and head
+            // Variant without callBack and head
               <Marker
               position={coordOnClick}
               />
@@ -110,19 +119,19 @@ function MiniMap() {
               <InfoWindow
               position={coordOnClick}
               options={{
-                headDisable:true
+                headerDisabled:true
               }}
               >
-              <button>Add</button>
+              <button onClick={onClickAdd}>Add</button>
               </InfoWindow>
-            
-            */}
           </>
         )}
       </GoogleMap>
     </>
   ) : (
-    <><h2 className='text-center'>Loading...</h2></>
+    <div className='flex justify-center items-center'>
+        <h2 className='text-center'>Loading...</h2>
+    </div>
   )
 }
 
