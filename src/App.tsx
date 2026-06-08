@@ -1,9 +1,9 @@
-import Map from './features/map/Map'
 import { BrowserRouter, Routes, Route} from 'react-router-dom'
 import Navbar from './components/Navbar'
-import Home from './pages/Home'
-import About from './pages/About'
 import Rides from './pages/Rides'
+import MapPage from './pages/MapPage'
+import About from './pages/About'
+import PostRidePage from './pages/PostRidePage'
 
 
 function App() {
@@ -15,9 +15,9 @@ function App() {
           <Navbar />
           <main>
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/map_page" element={<Map />} />
               <Route path="/rides" element={<Rides />} />
+              <Route path="/map_page" element={<MapPage />} />
+              <Route path="/post_ride_page" element={<PostRidePage />} />
               <Route path="/about" element={<About />} />
             </Routes>
           </main>

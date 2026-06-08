@@ -17,7 +17,7 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
                     <p className="text-brand-dark/90 text-base leading-relaxed">
                         Share your route and let others join you. Fill in the details and we'll match you with people heading the same way.
                     </p>
-                    <div>
+                    <div className='border-4 border-brand-navy'>
                         {/*Note that 'uploadCoordFunction' is just a name to the parameter and prop. In this case
                         is the same for both. It coul be change in line 6 renaming the second parameter
                         and changing in line 22 the prop's name. Both with the same new name*/}

@@ -50,6 +50,8 @@ export default function PostRide(){
         }
 
         console.log('This is data:', data)
+        console.log("Test locationInfo", locationInfo)
+
         setDataSaved(data)
     }
 

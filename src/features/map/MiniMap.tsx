@@ -52,7 +52,10 @@ function MiniMap({ uploadCoordFunction } : {uploadCoordFunction: any }): JSX.Ele
 
     if(lat === undefined || lng === undefined) return
 
-     setCoordOnClick({lat, lng})
+     setCoordOnClick({
+      lat: lat,
+      lng: lng
+     })
      console.log("Click's coordinates", lat, lng)
   }, [])
   

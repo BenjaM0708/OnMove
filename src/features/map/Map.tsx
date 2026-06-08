@@ -6,7 +6,7 @@ import { useGetRides } from '../../hooks/useGetRides'
 // Use a loose type for libraries to avoid mismatches with @react-google-maps/api Library type
 const libraries: any[] = ['places']
 
-const containerStyle = { width: '90%', height: '700px' }
+const containerStyle = { width: '100%', height: '700px' }
 const defaultCenter = { lat: 40.4169, lng: -3.7033 }
 
 
@@ -66,22 +66,6 @@ function Map() {
     setMap(null)
   }, [])
 
-  //Data from click
-  
-  const [coordOnClick, setCoordOnClick] = React.useState<{lat: number, lng: number} | null>(null)
-
-  const onClick = React.useCallback(function callback(event: google.maps.MapMouseEvent /* | any */) {
-     const lat = event.latLng?.lat()
-     const lng = event.latLng?.lng()
-
-    if(lat === undefined || lng === undefined) return
-
-     setCoordOnClick({lat, lng})
-     console.log("Click's coordinates", lat, lng)
-  }, [])
-  const [closeCoordOnClick, setCloseCoordOnClick] = React.useState< any | null>(null)
-  //
-
   //InfoWindow Controllers
   const [infoSelected, setInfoSelected] = React.useState< any | null>(null)
 
@@ -96,7 +80,6 @@ function Map() {
         zoom={13.5}
         onLoad={onLoad}
         onUnmount={onUnmount}
-        onClick={onClick}
         options={{
           disableDefaultUI: true,
           zoomControl: true,
@@ -127,39 +110,6 @@ function Map() {
           }}
           />
         ))}
-
-        {coordOnClick && (
-          <>
-            <Marker
-              position={coordOnClick}
-              onClick={()=> setCloseCoordOnClick(true)}
-            />
-
-            {closeCoordOnClick ? <InfoWindow
-              position={coordOnClick}
-              onCloseClick={() => setCloseCoordOnClick(null)}
-            >
-              <button>Add</button>
-            </InfoWindow> : null
-            }
-
-            {/* Variant ithout callBack and head
-              <Marker
-              position={coordOnClick}
-              />
-
-              <InfoWindow
-              position={coordOnClick}
-              options={{
-                headDisable:true
-              }}
-              >
-              <button>Add</button>
-              </InfoWindow>
-            
-            */}
-          </>
-        )}
 
         {infoSelected ? (<InfoWindow
           position={{

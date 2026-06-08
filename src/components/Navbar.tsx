@@ -30,7 +30,7 @@ function Navbar() {
   }, [pathLocation])
 
   return (
-    <nav className={`relative fixed top-0 left-0 right-0 z-50 transition-all duration-500 backdrop-blur-md
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 backdrop-blur-md
       ${scrolledNavbar
         ? `${theme.navScroll} mx-4 mt-3 rounded-full px-2 opacity-70`
         : theme.nav
@@ -59,9 +59,9 @@ function Navbar() {
         <div className="flex items-center gap-4">
 
           <div className="hidden md:flex items-center gap-8">
-            <Link to="/home" className={`text-sm transition-colors ${theme.text}`}>Home</Link>
+            <Link to="/rides" className={`text-sm transition-colors ${theme.text}`}>Rides</Link>
             <Link to="/map_page" className={`text-sm transition-colors ${theme.text}`}>Map</Link>
-            <Link to='/rides' className={`text-sm transition-colors ${theme.text}`}>Rides</Link>
+            <Link to='/post_ride_page' className={`text-sm transition-colors ${theme.text}`}>Post</Link>
             <Link to="/about" className={`text-sm px-5 py-2 rounded-full transition-colors ${theme.button}`}>About</Link>
           </div>
 
