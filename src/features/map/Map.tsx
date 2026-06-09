@@ -66,6 +66,21 @@ function Map() {
     setMap(null)
   }, [])
 
+  //Data from click
+  
+  const [coordOnClick, setCoordOnClick] = React.useState<{lat: number, lng: number} | null>(null)
+
+  const onClick = React.useCallback(function callback(event: google.maps.MapMouseEvent /* | any */) {
+     const lat = event.latLng?.lat()
+     const lng = event.latLng?.lng()
+
+    if(lat === undefined || lng === undefined) return
+
+     setCoordOnClick({lat, lng})
+     console.log("Click's coordinates", lat, lng)
+  }, [])
+  const [closeCoordOnClick, setCloseCoordOnClick] = React.useState< any | null>(null)
+
   //InfoWindow Controllers
   const [infoSelected, setInfoSelected] = React.useState< any | null>(null)
 

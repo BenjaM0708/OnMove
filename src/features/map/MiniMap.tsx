@@ -2,7 +2,10 @@ import React, { JSX } from 'react'
 import { GoogleMap, InfoWindow, Marker, useJsApiLoader } from '@react-google-maps/api'
 import { useGeolocation } from '../../hooks/useGeolocation'
 
-
+type ObjLocationInfo = {
+  origin?: {lat: number, lng: number}
+  destination?: {lat: number, lng: number}
+}
 
 const libraries: any[] = ['places']
 
@@ -10,7 +13,7 @@ const containerStyle = { width: '100%', height: '300px' }
 const defaultCenter = { lat: 40.4169, lng: -3.7033 }
 
 
-function MiniMap({ uploadCoordFunction } : {uploadCoordFunction: any }): JSX.Element {
+function MiniMap({ uploadCoordFunction, originInfoForm, destinationInfoForm } : {uploadCoordFunction: any, originInfoForm: boolean, destinationInfoForm: boolean}): JSX.Element {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '',
@@ -58,11 +61,25 @@ function MiniMap({ uploadCoordFunction } : {uploadCoordFunction: any }): JSX.Ele
      })
      console.log("Click's coordinates", lat, lng)
   }, [])
+
+//coordObject es el objeto que construyo para pasar a onClickAdd y as'i subir de padres
+  const [coordObject, setCoordObject] = React.useState<ObjLocationInfo | null>(null)
+
+  console.log("This is coordObject", coordObject)
   
-  //Save coord to upload them
+  //Save coord object to upload them
   const onClickAdd = () => {
-    uploadCoordFunction(coordOnClick)
+    setCoordObject({
+      origin: coordOnClick as any
+    })
   }
+console.log("This is coordObject", coordObject)
+
+  /*
+   const onClickAdd = () => {
+    uploadCoordFunction(coordObject)
+  }
+  */
 
   //Map Render
 
@@ -98,37 +115,18 @@ function MiniMap({ uploadCoordFunction } : {uploadCoordFunction: any }): JSX.Ele
 
         {coordOnClick && (
           <>
-            //Variant with callBack and head
-            {/*
-            <Marker
-              position={coordOnClick}
-              onClick={()=> setCloseCoordOnClick(true)}
-            />
+            <Marker position={coordOnClick} />
 
-            {closeCoordOnClick ? <InfoWindow
+            <InfoWindow
               position={coordOnClick}
-              onCloseClick={() => setCloseCoordOnClick(null)}
-            >
-              <button>Add</button>
-            </InfoWindow> : null
-            }
-            */}
-
-            // Variant without callBack and head
-              <Marker
-              position={coordOnClick}
-              />
-
-              <InfoWindow
-                position={coordOnClick}
-                options={{
-                    headerDisabled:true
-                }}>
-                <button  className="mt-2 bg-brand-navy text-brand-light font-medium text-sm py-2 px-6 ml-1 mb-1 rounded-md hover:bg-brand-navy/80 transition-colors"
-                    onClick={onClickAdd}>
-                    Add
-                </button>
-              </InfoWindow>
+              options={{
+                headerDisabled: true
+              }}>
+              <button  className="mt-2 bg-brand-navy text-brand-light font-medium text-sm py-2 px-6 ml-1 mb-1 rounded-md hover:bg-brand-navy/80 transition-colors"
+                  onClick={onClickAdd}>
+                  Add
+              </button>
+            </InfoWindow>
           </>
         )}
       </GoogleMap>
