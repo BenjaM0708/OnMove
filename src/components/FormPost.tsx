@@ -5,8 +5,7 @@ type submitFunction = (e: React.FormEvent<HTMLFormElement>) => any
 
 export default function FormPost({ submitFunction, uploadCoordFunction } : {submitFunction: submitFunction, uploadCoordFunction: any} ): JSX.Element {
     
-    const [originCoordStatus, setOriginCoordStatus] = useState<boolean>(false)
-    const [destinationCoordStatus, setDestinationCoordStatus] = useState<boolean>(false)
+    const [flowOnClickAdd, setFlowOnClickAdd] = React.useState<'origin' | 'destination' | 'done'>('origin')
 
     const [inputOriginStatus, setInputOriginStatus] = useState<boolean>(false)
     const [inputDestinationStatus, setInputDestinationStatus] = useState<boolean>(false)
@@ -25,6 +24,19 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
                     <p className="text-brand-dark/90 text-base leading-relaxed">
                         Share your route and let others join you. Fill in the details and we'll match you with people heading the same way.
                     </p>
+
+                    <div className='relative border-4 border-brand-navy mt-4'>
+                        {/*Note that 'uploadCoordFunction' is just a name to the parameter and prop. In this case
+                        is the same for both. It coul be change in line 6 renaming the second parameter
+                        and changing in line 22 the prop's name. Both with the same new name*/}
+                        
+                        <MiniMap 
+                            uploadCoordFunction={uploadCoordFunction}
+                            flowInfo={'origin'}
+                            flowInfoFunction={setFlowOnClickAdd}
+                        />
+                        
+                    </div>
                     
                     <div className="flex flex-col gap-2 mt-4">
                         <div className="flex items-center gap-3 text-brand-dark/90 text-sm">
@@ -40,18 +52,6 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
                         Other users will be able to join
                     </div>
 
-                    <div className='relative border-4 border-brand-navy mt-4'>
-                        {/*Note that 'uploadCoordFunction' is just a name to the parameter and prop. In this case
-                        is the same for both. It coul be change in line 6 renaming the second parameter
-                        and changing in line 22 the prop's name. Both with the same new name*/}
-                        
-                        <MiniMap 
-                            uploadCoordFunction={uploadCoordFunction}
-                            originInfoForm={originCoordStatus}
-                            destinationInfoForm={destinationCoordStatus}
-                        />
-                        
-                    </div>
                 </div>
             </div>
 
@@ -109,7 +109,7 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
                                 <button  
                                     type='button'
                                     onClick={()=>{
-                                        setOriginCoordStatus(true)
+                                        null
                                     }}>
                                     Reset
                                 </button>

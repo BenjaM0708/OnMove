@@ -13,7 +13,7 @@ const containerStyle = { width: '100%', height: '300px' }
 const defaultCenter = { lat: 40.4169, lng: -3.7033 }
 
 
-function MiniMap({ uploadCoordFunction, originInfoForm, destinationInfoForm } : {uploadCoordFunction: any, originInfoForm: boolean, destinationInfoForm: boolean}): JSX.Element {
+function MiniMap({ uploadCoordFunction, flowInfo, flowInfoFunction } : {uploadCoordFunction: any, flowInfo: 'origin' | 'destination' | 'done', flowInfoFunction: any}): JSX.Element {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '',
@@ -62,24 +62,46 @@ function MiniMap({ uploadCoordFunction, originInfoForm, destinationInfoForm } : 
      console.log("Click's coordinates", lat, lng)
   }, [])
 
-//coordObject es el objeto que construyo para pasar a onClickAdd y as'i subir de padres
   const [coordObject, setCoordObject] = React.useState<ObjLocationInfo | null>(null)
-
-  console.log("This is coordObject", coordObject)
+  // Note that coordObject is an object constructed with the uploadCoordFunction
+  // model to send coordinates to the parent. I think creating it is probably not
+  // strictly necessary because uploadCoordFunction could be updated 
+  // on every onClickAdd event.
   
   //Save coord object to upload them
   const onClickAdd = () => {
-    setCoordObject({
+    
+    if(flowInfo === 'origin'){
+      setCoordObject({
       origin: coordOnClick as any
-    })
-  }
-console.log("This is coordObject", coordObject)
+      })
+      flowInfoFunction('destination')
+      return
+    }
+    if(flowInfo === 'destination'){
+      setCoordObject({
+        ...coordObject,
+        destination: coordOnClick as any
+      })
+      flowInfoFunction('done')
+      alert("Places Added Successfully")
+      setTimeout(() => {
+        uploadCoordFunction(coordObject)
+      }, 300)
+      return
+    }
+    /*This clean logic will be used in the post button in the formFather
 
-  /*
-   const onClickAdd = () => {
-    uploadCoordFunction(coordObject)
+    if(flowOnClickAdd === 'done'){
+      uploadCoordFunction(coordObject)
+      setFlowOnClickAdd('origin')
+      setCoordObject(null)
+    } */else{
+      alert('Places was already Added. This Action is not Allowed')
+      return
+    }
   }
-  */
+console.log("This is coordObject and status flow", coordObject, flowInfo)
 
   //Map Render
 
@@ -97,7 +119,8 @@ console.log("This is coordObject", coordObject)
           disableDefaultUI: true,
           zoomControl: true,
           draggableCursor:"default",
-          draggingCursor: 'grabbing'
+          draggingCursor: 'grabbing',
+          clickableIcons: false
         }}
       >
         <Marker //User Position
