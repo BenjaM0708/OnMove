@@ -32,29 +32,45 @@ export default function PostRide(){
         const form = e.currentTarget
         const formData = new FormData(form)
 
-        const data: RidePostType = {
-          driver_name: formData.get("name") as string,
-          driver_contact_details: formData.get("contact") as string,
-          origin_location:
-            (!locationInfo?.origin?.lng || !locationInfo?.origin?.lat)
-            ? 'unknown'
-            : `POINT(${locationInfo.origin.lng} ${locationInfo.origin.lat})`,
-          destination_location:
-            (!locationInfo?.destination?.lng || !locationInfo?.destination?.lat)
-            ? 'unknown'
-            : `POINT(${locationInfo.destination.lng} ${locationInfo.destination.lat})`,
-          origin_datetime: formData.get("time") as string,
-          origin_description: formData.get("origin") as string,
-          destination_description: formData.get("destination") as string,
-          free_seats: Number(formData.get("seat")) as number
-        }
+        if(!submitdEvent) {
 
-        console.log('This is data:', data)
-        console.log("Test locationInfo", locationInfo)
+          const data: RidePostType = {
+            driver_name: formData.get("name") as string,
+            driver_contact_details: formData.get("contact") as string,
+            origin_location:
+              (!locationInfo?.origin?.lng || !locationInfo?.origin?.lat)
+              ? 'unknown'
+              : `POINT(${locationInfo.origin.lng} ${locationInfo.origin.lat})`,
+            destination_location:
+              (!locationInfo?.destination?.lng || !locationInfo?.destination?.lat)
+              ? 'unknown'
+              : `POINT(${locationInfo.destination.lng} ${locationInfo.destination.lat})`,
+            origin_datetime: formData.get("time") as string,
+            origin_description: formData.get("origin") as string,
+            destination_description: formData.get("destination") as string,
+            free_seats: Number(formData.get("seat")) as number
+          }
 
-        setDataSaved(data)
+          console.log('This is data:', data)
+          console.log("Test locationInfo", locationInfo)
+
+          setDataSaved(data)
+          setSubmitdEvent(true)
+          return  
+       } if(submitdEvent) {
+        //flowInfo needs be updated too
+        // Here is not the place because the button nedd be clicked again to this code run
+          setLocationInfo(null)
+          setDataSaved(null)
+          setSubmitdEvent(false)
+          return
+       } else{
+          alert("Something Wrong Happened. Try Again")
+          return
+       }
+       console.log('Location Info', locationInfo)
     }
-
+    
     useEffect(() => {
         //setSubmitdEvent(false)
         //contador

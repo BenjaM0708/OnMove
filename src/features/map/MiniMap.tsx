@@ -79,15 +79,17 @@ function MiniMap({ uploadCoordFunction, flowInfo, flowInfoFunction } : {uploadCo
       return
     }
     if(flowInfo === 'destination'){
-      setCoordObject({
+      const helperConst = {
         ...coordObject,
         destination: coordOnClick as any
-      })
+      }
+      // This const save the value now. With setCoordObject there are to wait
+      // go out the render to use uploadCoordFunction because coordObject is
+      // not uploaded yet
+      setCoordObject(helperConst)
       flowInfoFunction('done')
       alert("Places Added Successfully")
-      setTimeout(() => {
-        uploadCoordFunction(coordObject)
-      }, 300)
+      uploadCoordFunction(helperConst)
       return
     }
     /*This clean logic will be used in the post button in the formFather

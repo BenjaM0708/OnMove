@@ -32,7 +32,7 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
                         
                         <MiniMap 
                             uploadCoordFunction={uploadCoordFunction}
-                            flowInfo={'origin'}
+                            flowInfo={flowOnClickAdd}
                             flowInfoFunction={setFlowOnClickAdd}
                         />
                         
