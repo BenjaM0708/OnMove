@@ -1,4 +1,4 @@
-import React, { JSX } from 'react'
+import React, { JSX, useEffect } from 'react'
 import { GoogleMap, InfoWindow, Marker, useJsApiLoader } from '@react-google-maps/api'
 import { useGeolocation } from '../../hooks/useGeolocation'
 
@@ -13,7 +13,7 @@ const containerStyle = { width: '100%', height: '300px' }
 const defaultCenter = { lat: 40.4169, lng: -3.7033 }
 
 
-function MiniMap({ uploadCoordFunction, flowInfo, flowInfoFunction } : {uploadCoordFunction: any, flowInfo: 'origin' | 'destination' | 'done', flowInfoFunction: any}): JSX.Element {
+function MiniMap({ uploadCoordFunction, flowInfo, flowInfoFunction, resetLocation } : {uploadCoordFunction: any, flowInfo: 'origin' | 'destination' | 'done', flowInfoFunction: any, resetLocation: any}): JSX.Element {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '',
@@ -103,6 +103,17 @@ function MiniMap({ uploadCoordFunction, flowInfo, flowInfoFunction } : {uploadCo
       return
     }
   }
+
+  //Reset infoLocation
+  useEffect(() => {
+    resetLocation(() => ( () => {
+      setCoordObject(null)
+      flowInfoFunction('origin')
+      setCoordOnClick(null)
+    })
+  )}, [])
+
+
 console.log("This is coordObject and status flow", coordObject, flowInfo)
 
   //Map Render

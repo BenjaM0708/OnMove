@@ -27,6 +27,7 @@ export default function PostRide(){
     const [dataSaved, setDataSaved] = useState< RidePostType | null>(null)
     const [locationInfo, setLocationInfo] = useState<ObjLocationInfo | null>(null)
 
+    //Take the Information from user
     const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const form = e.currentTarget
@@ -59,7 +60,7 @@ export default function PostRide(){
           return  
        } if(submitdEvent) {
         //flowInfo needs be updated too
-        // Here is not the place because the button nedd be clicked again to this code run
+        // Here is not the place because the button need be clicked again to this code run
           setLocationInfo(null)
           setDataSaved(null)
           setSubmitdEvent(false)
@@ -68,9 +69,10 @@ export default function PostRide(){
           alert("Something Wrong Happened. Try Again")
           return
        }
-       console.log('Location Info', locationInfo)
     }
-    
+    console.log('Location Info', locationInfo)
+
+    //Send Information to SupaBase
     useEffect(() => {
         //setSubmitdEvent(false)
         //contador

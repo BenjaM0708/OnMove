@@ -1,15 +1,19 @@
 import React, { JSX, useEffect, useState } from 'react'
 import MiniMap from '../features/map/MiniMap'
+import { IoCheckmarkCircle, IoReloadCircle } from "react-icons/io5";
 
 type submitFunction = (e: React.FormEvent<HTMLFormElement>) => any
 
 export default function FormPost({ submitFunction, uploadCoordFunction } : {submitFunction: submitFunction, uploadCoordFunction: any} ): JSX.Element {
-    
+
+    //Controlthe flow in OnclickAdd
     const [flowOnClickAdd, setFlowOnClickAdd] = React.useState<'origin' | 'destination' | 'done'>('origin')
 
+    //Reset function to location object
+    const [resetLocationInfo, setResetLocationInfo] = React.useState<() => void>(() => {() => null} )
+    //Check this variables
     const [inputOriginStatus, setInputOriginStatus] = useState<boolean>(false)
     const [inputDestinationStatus, setInputDestinationStatus] = useState<boolean>(false)
-
 
     return(
         <div className="min-h-screen bg-brand-light pt-20 px-6">
@@ -34,6 +38,7 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
                             uploadCoordFunction={uploadCoordFunction}
                             flowInfo={flowOnClickAdd}
                             flowInfoFunction={setFlowOnClickAdd}
+                            resetLocation={setResetLocationInfo}
                         />
                         
                     </div>
@@ -80,14 +85,14 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
                     name="contact"
                     required
                     placeholder="600 000 000"
-                    pattern="[0-9]{9}"
+                    pattern="[0-9]{3} [0-9]{2} [0-9]{2} [0-9]{2}"
                     className="border border-brand-dark/20 rounded-md px-4 py-3 text-sm text-brand-dark bg-white focus:outline-none focus:border-brand-navy transition-colors"
                     />
                 </div>
 
                 <div className="flex flex-col gap-1">
                     <label className="text-sm font-medium text-brand-dark">
-                    Origin
+                    Origin Name
                     </label>
                     <div className="grid grid-cols-4 gap-4">
                         <input
@@ -108,9 +113,7 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
                                 </svg>
                                 <button  
                                     type='button'
-                                    onClick={()=>{
-                                        null
-                                    }}>
+                                    onClick={()=>{resetLocationInfo()}}>
                                     Reset
                                 </button>
                             </div>
@@ -120,9 +123,9 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
 
                 <div className="flex flex-col gap-1">
                     <label className="text-sm font-medium text-brand-dark">
-                    Destination
+                    Destination Name
                     </label>
-                    <div className="grid grid-cols-4 gap-4">
+                    <div className="grid grid-cols-5 gap-1">
                         <input
                         type="text"
                         name="destination"
@@ -130,18 +133,14 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
                         onBlur={()=>setInputDestinationStatus(false)}
                         required
                         placeholder="Gran Vía"
-                        className="col-span-3 border border-brand-dark/20 rounded-md px-4 py-3 text-sm text-brand-dark bg-white focus:outline-none focus:border-brand-navy transition-colors"
+                        className="col-span-4 border border-brand-dark/20 rounded-md px-4 py-3 text-sm text-brand-dark bg-white focus:outline-none focus:border-brand-navy transition-colors"
                         />
-                        <div className="col-span-1 flex items-center justify-center border border-brand-dark/20 rounded-md px-4 py-3 text-sm text-brand-dark bg-white focus:outline-none focus:border-brand-navy transition-colors">
-                            <div className='grid grid-cols-2 gap-4'>
+                        <div className="col-span-1 flex items-center justify-center px-4 py-3 text-sm text-brand-dark transition-colors">
+                            <div className='flex items-center justify-center flex-col'>
                                 <svg xmlns="http://www.w3.org/2000/svg" className={`h-6 w-6 ${!inputDestinationStatus ? 'text-brand-dark/20' : 'text-brand-gold'} transition-colors duration-200`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                                 </svg>
-                                <button
-                                    type='button'
-                                    onClick={()=>null}>
-                                    Reset
-                                </button>
+                                
                             </div>
                         </div>
                     </div>
