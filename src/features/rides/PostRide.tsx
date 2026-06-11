@@ -27,7 +27,7 @@ export default function PostRide(){
     const [dataSaved, setDataSaved] = useState< RidePostType | null>(null)
     const [locationInfo, setLocationInfo] = useState<ObjLocationInfo | null>(null)
 
-    //Take the Information from user
+    //Take the Information from user to build the Object to give Supabase
     const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const form = e.currentTarget

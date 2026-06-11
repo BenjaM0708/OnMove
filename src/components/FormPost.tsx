@@ -11,9 +11,26 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
 
     //Reset function to location object
     const [resetLocationInfo, setResetLocationInfo] = React.useState<() => void>(() => {() => null} )
+
     //Check this variables
     const [inputOriginStatus, setInputOriginStatus] = useState<boolean>(false)
     const [inputDestinationStatus, setInputDestinationStatus] = useState<boolean>(false)
+
+    //SubmitFunction with locationInfo conditional. Without this info the form won't be submit
+    const submitConditionalFunction = () => {
+        if(flowOnClickAdd === 'done'){
+            submitFunction
+            alert("Ride Posted Successfully")
+            return
+        }
+        if(flowOnClickAdd === "destination" || "origin"){
+            alert('Please select origin and destination in the Map')
+            //Use booleans variables boleanas to show/hidde a message with a setTimer
+        } else{
+            alert('Something Wrong Happened. Try Agan')
+            return
+        }
+    }
 
     return(
         <div className="min-h-screen bg-brand-light pt-20 px-6">
@@ -71,7 +88,7 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
             </div>
 
             {/* Right Col - Form */}
-            <form onSubmit={submitFunction} className="flex flex-col gap-5">
+            <form onSubmit={submitConditionalFunction} className="flex flex-col gap-5">
 
                 <div className="flex flex-col gap-1">
                     <label className="text-sm font-medium text-brand-dark">
@@ -94,7 +111,7 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
                     type="tel"
                     name="contact"
                     required
-                    placeholder="600 000 000"
+                    placeholder="600 00 00 00"
                     pattern="[0-9]{3} [0-9]{2} [0-9]{2} [0-9]{2}"
                     className="border border-brand-dark/20 rounded-md px-4 py-3 text-sm text-brand-dark bg-white focus:outline-none focus:border-brand-navy transition-colors"
                     />
@@ -116,7 +133,7 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
                         />
                         <div className="col-span-1 flex items-center justify-center px-4 py-3 text-sm text-brand-dark transition-colors">
                             <div className='flex items-center justify-center'>
-                                <IoCheckmarkCircle className={`h-6 w-6 ${!inputOriginStatus ? 'text-brand-dark/20' : 'text-brand-gold/80'} ${flowOnClickAdd === 'destination' && "text-green-600"} transition-colors duration-200`} />
+                                <IoCheckmarkCircle className={`h-6 w-6 ${!inputOriginStatus ? 'text-brand-dark/20' : 'text-brand-gold/80'} ${(flowOnClickAdd === 'destination' || flowOnClickAdd === 'done') && "text-green-600"} transition-colors duration-200`} />
                             </div>
                         </div>
                     </div>
@@ -138,7 +155,7 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
                         />
                         <div className="col-span-1 flex items-center justify-center px-4 py-3 text-sm text-brand-dark transition-colors">
                             <div className='flex items-center justify-center'>
-                              <IoCheckmarkCircle className={`h-6 w-6 ${!inputDestinationStatus ? 'text-brand-dark/20' : 'text-brand-gold'} transition-colors duration-200`} />
+                              <IoCheckmarkCircle className={`h-6 w-6 ${!inputDestinationStatus ? 'text-brand-dark/20' : 'text-brand-gold'} ${flowOnClickAdd === 'done' && "text-green-600"} ransition-colors duration-200`} />
                             </div>
                         </div>
                     </div>
