@@ -10,3 +10,4 @@
 8. Conectar PostRide con Supabase
 9. Ver URL para acceder sólo con nombre y dominio, sin www...
 10. Construir lógica para filtrar viajes por fechas y ubicación
+11. Revisar todos los alertas para implementar el Alert de la bibiloteca que tenemos
