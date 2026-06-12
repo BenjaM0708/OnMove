@@ -1,9 +1,9 @@
-import GetRides from "../features/rides/GetRides"
+import PostRide from "../features/rides/PostRide"
 
-export default function Rides() {
+export default function MapPage() {
   return (
     <>
-      <GetRides />
+     <PostRide />
     </>
   )
 };

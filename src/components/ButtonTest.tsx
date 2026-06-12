@@ -1,5 +1,5 @@
 import { Button } from "flowbite-react";
-import { useGetNearRide } from "../hooks/useGetRides";
+import { useGetNearRide } from "../hooks/useGetNearRide";
 
 export default function ButtonTest() {
 

@@ -1,12 +1,12 @@
 import React from 'react'
-import { GoogleMap, InfoWindow, Marker, useJsApiLoader } from '@react-google-maps/api'
+import { GoogleMap, InfoWindow, Marker, StandaloneSearchBox, useJsApiLoader } from '@react-google-maps/api'
 import { useGeolocation } from '../../hooks/useGeolocation'
-import { useGetRides } from '../../hooks/useGetRides'
+import { useGetNearRide } from '../../hooks/useGetNearRide'
 
 // Use a loose type for libraries to avoid mismatches with @react-google-maps/api Library type
 const libraries: any[] = ['places']
 
-const containerStyle = { width: '100%', height: '700px' }
+const containerStyle = { width: '90%', height: '700px' }
 const defaultCenter = { lat: 40.4169, lng: -3.7033 }
 
 
@@ -27,7 +27,7 @@ function Map() {
 
   //GetRides to the Map
 
-  const rideData : any = useGetRides()
+  const nearRideData : any = useGetNearRide()
 
   /*this is the getNearRide object
     car_ride_id: bigint
@@ -55,6 +55,9 @@ function Map() {
 
   const [map, setMap] = React.useState(null)
 
+  //Data from click
+  const [coordOnClick, setCoordOnClick] = React.useState<{lat: number, lng: number} | null>(null)
+  //
   const onLoad = React.useCallback(function callback(map: any) {
     
     const bounds = new window.google.maps.LatLngBounds(center)
@@ -67,9 +70,6 @@ function Map() {
   }, [])
 
   //Data from click
-  
-  const [coordOnClick, setCoordOnClick] = React.useState<{lat: number, lng: number} | null>(null)
-
   const onClick = React.useCallback(function callback(event: google.maps.MapMouseEvent /* | any */) {
      const lat = event.latLng?.lat()
      const lng = event.latLng?.lng()
@@ -79,10 +79,11 @@ function Map() {
      setCoordOnClick({lat, lng})
      console.log("Click's coordinates", lat, lng)
   }, [])
-  const [closeCoordOnClick, setCloseCoordOnClick] = React.useState< any | null>(null)
+  //
 
   //InfoWindow Controllers
   const [infoSelected, setInfoSelected] = React.useState< any | null>(null)
+  const [closeCoordOnClick, setCloseCoordOnClick] = React.useState< any | null>(null)
 
   //Map Render
 
@@ -95,6 +96,7 @@ function Map() {
         zoom={13.5}
         onLoad={onLoad}
         onUnmount={onUnmount}
+        onClick={onClick}
         options={{
           disableDefaultUI: true,
           zoomControl: true,
@@ -115,51 +117,81 @@ function Map() {
               }}
         />
 
-        {rideData.map((ride: any) => (
+        {nearRideData.map((nearRide: any) => (
           <Marker
-          key={ride.car_ride_id}
-          onClick={() => setInfoSelected(ride)}
+          key={nearRide.car_ride_id}
+          onClick={() => setInfoSelected(nearRide)}
+          title={`${nearRide.driver_nam}'s Ride`}
           position={{
-            lat:ride.origin_location_lat,
-            lng:ride.origin_location_long
+            lat:nearRide.origin_location_lat,
+            lng:nearRide.origin_location_long
           }}
           />
         ))}
 
+        {coordOnClick && (
+          <>
+            <Marker
+              position={coordOnClick}
+              onClick={()=> setCloseCoordOnClick(true)}
+            />
+
+            {closeCoordOnClick ? <InfoWindow
+              position={coordOnClick}
+              onCloseClick={() => setCloseCoordOnClick(null)}
+            >
+              <button>Add</button>
+            </InfoWindow> : null
+            }
+
+            {/* Variant ithout callBack and head
+              <Marker
+              position={coordOnClick}
+              />
+
+              <InfoWindow
+              position={coordOnClick}
+              options={{
+                headDisable:true
+              }}
+              >
+              <button>Add</button>
+              </InfoWindow>
+            
+            */}
+          </>
+        )}
+
         {infoSelected ? (<InfoWindow
-  position={{
-    lat:infoSelected.origin_location_lat,
-    lng:infoSelected.origin_location_long
-  }}
-  options={{
-    headerDisabled:true,
-    maxWidth:250
-  }}
->
-  <div className='flex flex-col font-body'>
-    <div className="flex justify-between items-center mb-2 gap-3">
-  <h2 className='font-display text-base font-semibold text-brand-navy'>{infoSelected.driver_name}'s Ride</h2>
-  <button onClick={() => setInfoSelected(null)} className='text-brand-dark/50 text-lg font-bold hover:text-brand-dark transition-colors flex-shrink-0'>×</button>
-</div>
-    <div className='flex flex-col gap-1 text-sm text-brand-dark'>
-      <p><span className='font-medium text-brand-gold'>Origin</span>: {infoSelected.origin_description}</p>
-      <p><span className='font-medium text-brand-gold'>Destination</span>: {infoSelected.destination_description}</p>
-      <p><span className='font-medium text-brand-gold'>Free Seats</span>: {infoSelected.free_seats}</p>
-      <p><span className='font-medium text-brand-gold'>Date</span>: {new Date(infoSelected.origin_datetime).toLocaleDateString()}</p>
-      <p><span className='font-medium text-brand-gold'>Time</span>: {new Date(infoSelected.origin_datetime).toLocaleTimeString()}</p>
-    </div>
-    <button className='mt-3 w-full bg-brand-navy text-brand-light text-sm font-medium py-2 rounded-md hover:bg-brand-navy/80 transition-colors'>
-      Join
-    </button>
-  </div>
-</InfoWindow>) : null}
+          position={{
+            lat:infoSelected.origin_location_lat,
+            lng:infoSelected.origin_location_long
+          }}
+          options={{
+            headerDisabled:true,
+            maxWidth:250
+          }}
+        >
+          <div className='flex flex-col'>
+            <div className="flex justify-between items-center m-1">
+              <h2 className='text-zinc-950'>{infoSelected.driver_name}'s Ride</h2>
+              <button onClick={() => setInfoSelected(null)} className='text-gray-700 text-lg font-bold self-start ml-2 mb-1 hover:text-gray-600'>x</button>
+            </div>
+            <div className='flex flex-col mx-1 text-left text-black font-normal'>
+              <p><span className='font-bold text-yellow-400'>Origin</span>: {infoSelected.origin_description}</p>
+              <p><span className='font-bold text-yellow-400'>Destination</span>: {infoSelected.destination_description}</p>
+              <p><span className='font-bold text-yellow-400'>Free Seats</span>: {infoSelected.free_seats}</p>
+              <p><span className='font-bold text-yellow-400'>Date</span>:{new Date(infoSelected.origin_datetime).toLocaleDateString()}</p> 
+              <p><span className='font-bold text-yellow-400'>Time</span>: {new Date(infoSelected.origin_datetime).toLocaleTimeString()}</p>
+            </div>
+            <button className='flex self-center justify-center bg-gray-900 hover:bg-gray-800 my-2 text-xl text-white rounded-sm shadow-sm w-2/3 font-semibold'>Join</button>
+          </div>
+        </InfoWindow>) : null}
 
       </GoogleMap>
     </>
   ) : (
-    <div className='flex justify-center items-center'>
-        <h2 className='text-center'>Loading...</h2>
-    </div>
+    <><h2 className='text-center'>Loading...</h2></>
   )
 }
 

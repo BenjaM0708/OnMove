@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { supabase } from '../services/supabase'
 import { Database } from "../types/types";
 
-type rideInfo = Database['public']['Tables']['car_ride']['Row']
+type NearRideInfo = Database['public']['Tables']['car_ride']['Row']
 /*
     car_ride_id: bigint
     destination_description: string | null
@@ -16,7 +16,7 @@ type rideInfo = Database['public']['Tables']['car_ride']['Row']
 */
 
 
-interface rideData extends rideInfo {
+interface NearRideData extends NearRideInfo {
     readonly car_ride_id: bigint;
 
     //CardRideInfo has origin_location like coordinates
@@ -30,11 +30,11 @@ interface rideData extends rideInfo {
     destination_location_lat: string;
 }
 
-export const useGetRides = () => {
-    const [rides, setRides] = useState<rideData[]>([])
+export const useGetNearRide = () => {
+    const [nearRides, setNearRides] = useState<NearRideData[]>([])
 
         useEffect(() => {
-            async function fetchRides(): Promise<void> {
+            async function fetchNearRides(): Promise<void> {
                 const { data, error } = await supabase
                     .rpc('origin_locations_by_distance', {
                         searchlong: -4.11839,
@@ -49,15 +49,15 @@ export const useGetRides = () => {
     
                 if (data) {
                     console.log('Data recibed', data)
-                    setRides(data as rideData[])
+                    setNearRides(data as NearRideData[])
                 }
     
             }
     
-            fetchRides()
+            fetchNearRides()
         }, [])
         
-    return rides;
+    return nearRides;
 }
 
 
