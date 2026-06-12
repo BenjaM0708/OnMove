@@ -48,7 +48,7 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
 
                     <div className='flex flex-col'>
                         <p className='font-display font-semibold text-brand-navy leading-tight'>Select your Places</p>
-                        <div className='relative border-4 border-brand-navy mt-4'>
+                        <div className='rounded-lg overflow-hidden border-2 border-brand-navy/30 shadow-sm mt-4'>
                             {/*Note that 'uploadCoordFunction' is just a name to the parameter and prop. In this case
                             is the same for both. It coul be change in line 6 renaming the second parameter
                             and changing in line 22 the prop's name. Both with the same new name*/}
@@ -63,7 +63,7 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
 
                         <button  
                             type='button'
-                            className="mt-2 w-min flex grid-cols-2 gap-2 items-center bg-brand-navy text-brand-light font-medium text-base py-2 px-4 rounded-md hover:bg-brand-navy/80 transition-colors"
+                            className="mt-3 w-min flex grid-cols-2 gap-2 items-center bg-brand-navy text-brand-light font-medium text-base py-2 px-4 rounded-md hover:bg-brand-navy/80 transition-colors"
                             onClick={()=>{resetLocationInfo()}}>
                                 Reset
                                 <IoReload className='h-5 w-5 text-brand-gold' />

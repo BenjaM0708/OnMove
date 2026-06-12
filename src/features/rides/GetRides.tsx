@@ -58,15 +58,71 @@ export default function GetRides() {
     }, [])
 
     return (
-        <>
-            <h1 className='p-5 hover:cursor-pointer'>Car drives</h1>
-            <ul>
+        <div className="min-h-screen bg-brand-light pt-24 px-6">
+        <div className="max-w-3xl mx-auto py-16">
+
+            <div className="flex flex-col gap-2 mb-10">
+                <div className="w-12 h-1 bg-brand-gold rounded-full">&nbsp;</div>
+                <h1 className="font-display text-4xl font-semibold text-brand-navy leading-tight">
+                    Available Rides
+                </h1>
+                <p className="text-brand-dark/70 text-base">
+                    Browse rides shared by the community and find your match.
+                </p>
+            </div>
+
+            <ul className="flex flex-col gap-4">
+                
                 {carRides.map((carRide: CarRideData) => (
-                    <li key={carRide.car_ride_id}>
-                        {carRide.driver_name} drives to {carRide.destination_description} at {new Date(carRide.origin_datetime).toLocaleTimeString()}
+                    <li
+                        key={carRide.car_ride_id}
+                        className="border border-brand-dark/10 rounded-lg p-6 bg-white hover:border-brand-navy/30 transition-colors"
+                    >
+                        {/* Up.svg*/}
+                        <div className="flex items-center justify-between mb-4">
+                            <span className="font-medium text-brand-dark">
+                                {carRide.driver_name}
+                            </span>
+                            <span className="text-sm text-brand-dark/60">
+                                {new Date(carRide.origin_datetime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            </span>
+                        </div>
+
+                        {/*La salud empieza a desaparer*/}
+                        <div className="flex items-center gap-3">
+                            <div className="flex flex-col items-center">
+                                <span className="w-2 h-2 rounded-full bg-brand-gold">&nbsp;</span>
+                                <span className="w-px h-6 bg-brand-dark/20">&nbsp;</span>
+                                <span className="w-2 h-2 rounded-full bg-brand-navy">&nbsp;</span>
+                            </div>
+                            <div className="flex flex-col gap-1 text-sm text-brand-dark">
+                                <span>{carRide.origin_description ?? 'Unknown origin'}</span>
+                                <span>{carRide.destination_description ?? 'Unknown destination'}</span>
+                            </div>
+                        </div>
+
+                        {/* Fila inferior: fecha y asientos */}
+            <div className="flex items-center justify-between mt-4 pt-4 border-t border-brand-dark/10">
+                <span className="text-sm text-brand-dark/60">
+                    {new Date(carRide.origin_datetime).toLocaleDateString([], { weekday: 'short', day: 'numeric', month: 'short' })}
+                </span>
+                <span className="text-sm font-medium text-brand-navy bg-brand-navy/10 px-3 py-1 rounded-full">
+                    {carRide.free_seats} {carRide.free_seats === 1 ? 'seat' : 'seats'} available
+                </span>
+            </div>
+
+            {/* Botón unirse */}
+            <button
+                className="mt-4 w-full bg-brand-navy text-brand-light text-sm font-medium py-2.5 rounded-md hover:bg-brand-navy/80 transition-colors"
+            >
+                Join this ride
+            </button>
+
                     </li>
                 ))}
-            </ul>
-        </>
+       </ul>  
+
+        </div>
+    </div>
     )
 }

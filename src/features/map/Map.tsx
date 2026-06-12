@@ -127,30 +127,32 @@ function Map() {
         ))}
 
         {infoSelected ? (<InfoWindow
-          position={{
-            lat:infoSelected.origin_location_lat,
-            lng:infoSelected.origin_location_long
-          }}
-          options={{
-            headerDisabled:true,
-            maxWidth:250
-          }}
-        >
-          <div className='flex flex-col'>
-            <div className="flex justify-between items-center m-1">
-              <h2 className='text-zinc-950'>{infoSelected.driver_name}'s Ride</h2>
-              <button onClick={() => setInfoSelected(null)} className='text-gray-700 text-lg font-bold self-start ml-2 mb-1 hover:text-gray-600'>x</button>
-            </div>
-            <div className='flex flex-col mx-1 text-left text-black font-normal'>
-              <p><span className='font-bold text-yellow-400'>Origin</span>: {infoSelected.origin_description}</p>
-              <p><span className='font-bold text-yellow-400'>Destination</span>: {infoSelected.destination_description}</p>
-              <p><span className='font-bold text-yellow-400'>Free Seats</span>: {infoSelected.free_seats}</p>
-              <p><span className='font-bold text-yellow-400'>Date</span>:{new Date(infoSelected.origin_datetime).toLocaleDateString()}</p> 
-              <p><span className='font-bold text-yellow-400'>Time</span>: {new Date(infoSelected.origin_datetime).toLocaleTimeString()}</p>
-            </div>
-            <button className='flex self-center justify-center bg-gray-900 hover:bg-gray-800 my-2 text-xl text-white rounded-sm shadow-sm w-2/3 font-semibold'>Join</button>
-          </div>
-        </InfoWindow>) : null}
+  position={{
+    lat:infoSelected.origin_location_lat,
+    lng:infoSelected.origin_location_long
+  }}
+  options={{
+    headerDisabled:true,
+    maxWidth:250
+  }}
+>
+  <div className='flex flex-col font-body'>
+    <div className="flex justify-between items-center mb-2 gap-3">
+  <h2 className='font-display text-base font-semibold text-brand-navy'>{infoSelected.driver_name}'s Ride</h2>
+  <button onClick={() => setInfoSelected(null)} className='text-brand-dark/50 text-lg font-bold hover:text-brand-dark transition-colors flex-shrink-0'>×</button>
+</div>
+    <div className='flex flex-col gap-1 text-sm text-brand-dark'>
+      <p><span className='font-medium text-brand-gold'>Origin</span>: {infoSelected.origin_description}</p>
+      <p><span className='font-medium text-brand-gold'>Destination</span>: {infoSelected.destination_description}</p>
+      <p><span className='font-medium text-brand-gold'>Free Seats</span>: {infoSelected.free_seats}</p>
+      <p><span className='font-medium text-brand-gold'>Date</span>: {new Date(infoSelected.origin_datetime).toLocaleDateString()}</p>
+      <p><span className='font-medium text-brand-gold'>Time</span>: {new Date(infoSelected.origin_datetime).toLocaleTimeString()}</p>
+    </div>
+    <button className='mt-3 w-full bg-brand-navy text-brand-light text-sm font-medium py-2 rounded-md hover:bg-brand-navy/80 transition-colors'>
+      Join
+    </button>
+  </div>
+</InfoWindow>) : null}
 
       </GoogleMap>
     </>

@@ -9,4 +9,4 @@
 7. Revisar por que hay cosas que se repiten en la consola
 8. Conectar PostRide con Supabase
 9. Ver URL para acceder sólo con nombre y dominio, sin www...
-10. Construir lógica para filtrar viajes por fechas
+10. Construir lógica para filtrar viajes por fechas y ubicación
