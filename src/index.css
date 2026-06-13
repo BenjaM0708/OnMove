@@ -16,3 +16,22 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+.hero-marquee {
+  animation: heroMarquee 9s infinite ease-in-out;
+}
+
+@keyframes heroMarquee {
+  0%, 20% {
+    transform: translateY(0%);
+  }
+  33%, 53% {
+    transform: translateY(-100%);
+  }
+  66%, 86% {
+    transform: translateY(-200%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}

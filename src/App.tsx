@@ -4,6 +4,7 @@ import Rides from './pages/Rides'
 import MapPage from './pages/MapPage'
 import About from './pages/About'
 import PostRidePage from './pages/PostRidePage'
+import Home from './pages/Home'
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Navbar />
           <main>
             <Routes>
+              <Route path="/" element={<Home />} />
               <Route path="/rides" element={<Rides />} />
               <Route path="/map_page" element={<MapPage />} />
               <Route path="/post_ride_page" element={<PostRidePage />} />
