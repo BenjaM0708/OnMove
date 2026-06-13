@@ -17,17 +17,19 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
     const [inputDestinationStatus, setInputDestinationStatus] = useState<boolean>(false)
 
     //SubmitFunction with locationInfo conditional. Without this info the form won't be submit
-    const submitConditionalFunction = () => {
+    const submitConditionalFunction = (e: React.FormEvent<HTMLFormElement>) => {
         if(flowOnClickAdd === 'done'){
-            submitFunction
+            submitFunction(e)
+            resetLocationInfo()
             alert("Ride Posted Successfully")
             return
         }
-        if(flowOnClickAdd === "destination" || "origin"){
+        // if not done, prompt user to select origin and destination
+        if(flowOnClickAdd === 'origin' || flowOnClickAdd === 'destination'){
             alert('Please select origin and destination in the Map')
             //Use booleans variables boleanas to show/hidde a message with a setTimer
         } else{
-            alert('Something Wrong Happened. Try Agan')
+            alert('Something Wrong Happened. Try Again')
             return
         }
     }

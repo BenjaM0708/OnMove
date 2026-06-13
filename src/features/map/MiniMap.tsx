@@ -88,17 +88,10 @@ function MiniMap({ uploadCoordFunction, flowInfo, flowInfoFunction, resetLocatio
       // not uploaded yet
       setCoordObject(helperConst)
       flowInfoFunction('done')
-      alert("Places Added Successfully")
       uploadCoordFunction(helperConst)
+      alert("Places Added Successfully")
       return
-    }
-    /*This clean logic will be used in the post button in the formFather
-
-    if(flowOnClickAdd === 'done'){
-      uploadCoordFunction(coordObject)
-      setFlowOnClickAdd('origin')
-      setCoordObject(null)
-    } */else{
+    } else{
       alert('Places was already Added. This Action is not Allowed')
       return
     }

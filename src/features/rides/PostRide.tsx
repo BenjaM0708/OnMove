@@ -1,6 +1,7 @@
 import React, { useState, useEffect, use } from 'react'
 import FormPost from '../../components/FormPost'
 import { Database } from '../../types/types';
+import { usePostRide } from '../../hooks/usePostRide';
 
 type ObjLocationInfo = {
   origin?: {lat: number, lng: number}
@@ -23,7 +24,6 @@ type RidePostType = Database['public']['Tables']['car_ride']['Insert']
 
 export default function PostRide(){
 
-    const [submitdEvent, setSubmitdEvent] = useState(false)
     const [dataSaved, setDataSaved] = useState< RidePostType | null>(null)
     const [locationInfo, setLocationInfo] = useState<ObjLocationInfo | null>(null)
 
@@ -33,50 +33,44 @@ export default function PostRide(){
         const form = e.currentTarget
         const formData = new FormData(form)
 
-        if(!submitdEvent) {
+        const data: RidePostType = {
+          driver_name: formData.get("name") as string,
+          driver_contact_details: formData.get("contact") as string,
+          origin_location:
+            (!locationInfo?.origin?.lng || !locationInfo?.origin?.lat)
+            ? 'unknown'
+            : `POINT(${locationInfo.origin.lng} ${locationInfo.origin.lat})`,
+          destination_location:
+            (!locationInfo?.destination?.lng || !locationInfo?.destination?.lat)
+            ? 'unknown'
+            : `POINT(${locationInfo.destination.lng} ${locationInfo.destination.lat})`,
+          origin_datetime: formData.get("time") as string,
+          origin_description: formData.get("origin") as string,
+          destination_description: formData.get("destination") as string,
+          free_seats: Number(formData.get("seat")) as number
+        }
+        
+        console.log("Data:", data)
+        setDataSaved(data)
 
-          const data: RidePostType = {
-            driver_name: formData.get("name") as string,
-            driver_contact_details: formData.get("contact") as string,
-            origin_location:
-              (!locationInfo?.origin?.lng || !locationInfo?.origin?.lat)
-              ? 'unknown'
-              : `POINT(${locationInfo.origin.lng} ${locationInfo.origin.lat})`,
-            destination_location:
-              (!locationInfo?.destination?.lng || !locationInfo?.destination?.lat)
-              ? 'unknown'
-              : `POINT(${locationInfo.destination.lng} ${locationInfo.destination.lat})`,
-            origin_datetime: formData.get("time") as string,
-            origin_description: formData.get("origin") as string,
-            destination_description: formData.get("destination") as string,
-            free_seats: Number(formData.get("seat")) as number
-          }
-
-          console.log('This is data:', data)
-          console.log("Test locationInfo", locationInfo)
-
-          setDataSaved(data)
-          setSubmitdEvent(true)
-          return  
-       } if(submitdEvent) {
-        //flowInfo needs be updated too
-        // Here is not the place because the button need be clicked again to this code run
-          setLocationInfo(null)
-          setDataSaved(null)
-          setSubmitdEvent(false)
-          return
-       } else{
-          alert("Something Wrong Happened. Try Again")
-          return
-       }
+        //Reset The Form
+        setLocationInfo(null)
+        form.reset()
+        return  
     }
-    console.log('Location Info', locationInfo)
+
+    console.log("DataSaved:", dataSaved)
 
     //Send Information to SupaBase
     useEffect(() => {
-        //setSubmitdEvent(false)
-        //contador
-    }, [submitdEvent])
+      /*if(!dataSaved){
+        alert("Something Wrong Happened. That Ride couldn't be Posted. Please Try Again")
+        return
+      }*/// Something wrong here
+      /*if(dataSaved){
+      usePostRide(dataSaved)
+      }*/
+    }, [dataSaved])
 
     return(
       <>
