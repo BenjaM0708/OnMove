@@ -30,12 +30,17 @@ function Navbar() {
   }, [pathLocation])
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 backdrop-blur-md
-      ${scrolledNavbar
-        ? `${theme.navScroll} mx-4 mt-3 rounded-full px-2 opacity-70`
-        : theme.nav
-      }
-    `}>
+    <nav 
+      style={{
+        borderRadius: scrolledNavbar 
+          ? (menuOpen ? '24px 24px 0px 0px' : '9999px') 
+          : '0px'
+      }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 backdrop-blur-md
+        ${scrolledNavbar
+          ? `${theme.navScroll} mx-4 mt-3 px-2 opacity-70`
+          : theme.nav}
+      `}>
       <div className="max-w-6xl mx-auto px-6 py-2 flex items-center justify-between">
 
         <Link to="/" className={`font-display text-2xl font-bold ${theme.logo} flex items-center gap-2`}>
@@ -43,19 +48,27 @@ function Navbar() {
           OnMove
         </Link>
 
-        <div className={`md:hidden absolute top-full left-0 right-0 shadow-lg backdrop-blur-md
-          overflow-hidden transition-all duration-300 ease-in-out
+        {/*//Nomal Navbar*/}
+        <div 
+          style={{
+            borderRadius: scrolledNavbar && menuOpen ? '0 0 24px 24px' : '0px'
+          }}
+          className={`md:hidden absolute top-full left-0 right-0 shadow-lg backdrop-blur-md
+          overflow-hidden transition-all duration-500 ease-in-out
           ${menuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}
-          ${isHome ? "bg-brand-cream/95" : "bg-brand-dark/95"}`}>
+          ${isHome ? "bg-brand-cream/95" : "bg-brand-dark/95"}
+        `}>
 
+           {/*Burger menu in Navbar - Static*/}
           <div className="px-6 py-6 flex flex-col gap-1">
-            <Link to="/home" className={`py-2 text-base transition-colors ${isHome ? "border-brand-dark/10" : "border-brand-cream/10"} ${theme.text}`}>Home</Link>
+            <Link to="/rides" className={`py-2 text-base transition-colors ${isHome ? "border-brand-dark/10" : "border-brand-cream/10"} ${theme.text}`}>Rides</Link>
             <Link to="/map_page" className={`py-2 text-base transition-colors ${isHome ? "border-brand-dark/10" : "border-brand-cream/10"} ${theme.text}`}>Map</Link>
-            <Link to='/rides' className={`py-2 text-base transition-colors ${isHome ? "border-brand-dark/10" : "border-brand-cream/10"} ${theme.text}`}>Rides</Link>
+            <Link to='/post_ride_page' className={`py-2 text-base transition-colors ${isHome ? "border-brand-dark/10" : "border-brand-cream/10"} ${theme.text}`}>Post</Link>
             <Link to="/about" className={`mt-2 py-3 text-base text-center rounded-full transition-colors ${theme.button}`}>About</Link>
           </div>
         </div>
-
+        
+        {/*Burger menu in Navbar - Floting*/}
         <div className="flex items-center gap-4">
 
           <div className="hidden md:flex items-center gap-8">
