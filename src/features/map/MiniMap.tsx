@@ -126,13 +126,14 @@ console.log("This is coordObject and status flow", coordObject, flowInfo)
           zoomControl: true,
           draggableCursor:"default",
           draggingCursor: 'grabbing',
-          clickableIcons: false
+          clickableIcons: false,
+          gestureHandling: 'greedy'
         }}
       >
         <Marker //User Position
         position={center} 
         title='Current Location'
-        /*icon={{
+        icon={{
           path: window.google.maps.SymbolPath.CIRCLE,
           fillColor: "#4285F4",    
           fillOpacity: 0.9,        
@@ -140,12 +141,11 @@ console.log("This is coordObject and status flow", coordObject, flowInfo)
           strokeColor: "#FFFFFF",  
           strokeWeight: 2,  
               }}
-        */
         />
 
         {coordOnClick && (
           <>
-            <Marker position={coordOnClick} />
+            {/*<Marker position={coordOnClick} />*/}
 
             <InfoWindow
               position={coordOnClick}

@@ -6,7 +6,7 @@ import { useGetRides } from '../../hooks/useGetRides'
 // Use a loose type for libraries to avoid mismatches with @react-google-maps/api Library type
 const libraries: any[] = ['places']
 
-const containerStyle = { width: '100%', height: '700px' }
+const containerStyle = { width: '100%', height: '100%' }
 const defaultCenter = { lat: 40.4169, lng: -3.7033 }
 
 
@@ -99,7 +99,8 @@ function Map() {
           disableDefaultUI: true,
           zoomControl: true,
           draggableCursor:"default",
-          draggingCursor: 'grabbing'
+          draggingCursor: 'grabbing',
+          gestureHandling: 'greedy'
         }}
       >
         <Marker //User Position

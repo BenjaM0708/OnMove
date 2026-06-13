@@ -15,7 +15,7 @@ export default function MapPage() {
           </p>
         </div>
 
-        <div className="rounded-lg overflow-hidden border-2 border-brand-navy/30 shadow-sm">
+        <div className="h-[400px] md:h-[700px] rounded-lg overflow-hidden border-2 border-brand-navy/30 shadow-sm">
           <Map />
         </div>
 
