@@ -10,16 +10,16 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
     const [flowOnClickAdd, setFlowOnClickAdd] = React.useState<'origin' | 'destination' | 'done'>('origin')
 
     //Reset function to location object
-    const [resetLocationInfo, setResetLocationInfo] = React.useState<() => void>(() => {() => null} )
+    const [resetLocationInfo, setResetLocationInfo] = React.useState<() => void>(() => {() => {}} )
 
     //Check this variables
     const [inputOriginStatus, setInputOriginStatus] = useState<boolean>(false)
     const [inputDestinationStatus, setInputDestinationStatus] = useState<boolean>(false)
 
     //SubmitFunction with locationInfo conditional. Without this info the form won't be submit
-    const submitConditionalFunction = (e: React.FormEvent<HTMLFormElement>) => {
+    const submitConditionalFunction = async (e: React.FormEvent<HTMLFormElement>) => {
         if(flowOnClickAdd === 'done'){
-            submitFunction(e)
+            await submitFunction(e)
             resetLocationInfo()
             alert("Ride Posted Successfully")
             return

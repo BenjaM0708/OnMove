@@ -1,7 +1,7 @@
-import React, { useState, useEffect, use } from 'react'
+import React, { useState, useEffect } from 'react'
 import FormPost from '../../components/FormPost'
 import { Database } from '../../types/types';
-import { usePostRide } from '../../hooks/usePostRide';
+import { funcPostRide } from '../../functions/funcPostRide';
 
 type ObjLocationInfo = {
   origin?: {lat: number, lng: number}
@@ -28,7 +28,7 @@ export default function PostRide(){
     const [locationInfo, setLocationInfo] = useState<ObjLocationInfo | null>(null)
 
     //Take the Information from user to build the Object to give Supabase
-    const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const form = e.currentTarget
         const formData = new FormData(form)
@@ -50,8 +50,15 @@ export default function PostRide(){
           free_seats: Number(formData.get("seat")) as number
         }
         
-        console.log("Data:", data)
+        console.log("New data submit:", data)
         setDataSaved(data)
+
+        //Send Information to SupaBase
+        try {
+          await funcPostRide(data)
+        } catch (error) {
+          console.log('Something Wrong Happened. Try Again')
+        }
 
         //Reset The Form
         setLocationInfo(null)
@@ -59,18 +66,8 @@ export default function PostRide(){
         return  
     }
 
-    console.log("DataSaved:", dataSaved)
-
-    //Send Information to SupaBase
-    useEffect(() => {
-      /*if(!dataSaved){
-        alert("Something Wrong Happened. That Ride couldn't be Posted. Please Try Again")
-        return
-      }*/// Something wrong here
-      /*if(dataSaved){
-      usePostRide(dataSaved)
-      }*/
-    }, [dataSaved])
+    //Data message
+    console.log("Last data submit:", dataSaved)
 
     return(
       <>

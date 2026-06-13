@@ -132,7 +132,7 @@ console.log("This is coordObject and status flow", coordObject, flowInfo)
         <Marker //User Position
         position={center} 
         title='Current Location'
-        icon={{
+        /*icon={{
           path: window.google.maps.SymbolPath.CIRCLE,
           fillColor: "#4285F4",    
           fillOpacity: 0.9,        
@@ -140,6 +140,7 @@ console.log("This is coordObject and status flow", coordObject, flowInfo)
           strokeColor: "#FFFFFF",  
           strokeWeight: 2,  
               }}
+        */
         />
 
         {coordOnClick && (

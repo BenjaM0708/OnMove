@@ -37,6 +37,7 @@ export default function GetRides() {
         async function fetchCarRides(): Promise<void> {
             const { data, error } = await supabase
                 .rpc('origin_locations_by_distance', {
+                    //Check this location
                     searchlong: -4.11839,
                     searchlat: 40.94808
                 })
