@@ -6,7 +6,7 @@
 
 5. Lógica de botón amarillo en FormPost
 
-6. Ver URL para acceder sólo con nombre y dominio, sin www...
+6. Ver URL para acceder sólo con nombre y dominio, sin www... //Tal vez resuelto!!!!
 7. Construir lógica para filtrar viajes por fechas y ubicación
 8. Revisar todos los alertas para implementar el Alert de la bibiloteca que tenemos
 9. Hacer lógica del botón JOIN en _Map_ y _Rides_

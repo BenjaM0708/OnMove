@@ -10,7 +10,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        'brand-navy':  '#2E4A62',
+        'brand-navy':  '#233047',
+        'brand-navy-light': '#2E4A62',
         'brand-gold':  '#E5AA1E',
         'brand-dark':  '#3C4043',
         'brand-light': '#F8F9FA',

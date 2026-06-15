@@ -32,7 +32,7 @@ export default function Home() {
           
           <div className="flex flex-col items-center gap-6 text-center px-6 max-w-3xl">
             <h1 className="font-display text-4xl md:text-6xl font-bold text-brand-light leading-tight">
-              Move together, <span className="text-brand-gold">save together</span>
+              Move together, <span className="text-brand-gold">Save together</span>
             </h1>
             <p className="text-brand-light/80 text-base md:text-lg">
               Share your ride or find one nearby fast, simple, and free.
@@ -77,9 +77,12 @@ export default function Home() {
                     <p className="text-brand-dark/70 text-base leading-relaxed">
                         Browse available rides near you in real time. Find someone heading your way and join them in just a few taps.
                     </p>
-                    <button className="mt-2 w-fit bg-brand-navy text-brand-light text-sm font-medium px-6 py-3 rounded-md hover:bg-brand-navy/80 transition-colors">
-                        Browse rides
-                    </button>
+                    
+                    <Link to='/map_page'>
+                        <button className="mt-2 w-fit bg-brand-navy text-brand-light text-sm font-medium px-6 py-3 rounded-md hover:bg-brand-navy/80 transition-colors">
+                            Browse rides
+                        </button>
+                    </Link>
                 </div>
 
                 {/* Imagen placeholder derecha */}
@@ -107,9 +110,12 @@ export default function Home() {
                     <p className="text-brand-light/70 text-base leading-relaxed">
                         Post your route and let others join you. Share the journey, reduce costs, and make a difference for someone heading your way.
                     </p>
-                    <button className="mt-2 w-fit bg-brand-gold text-brand-dark text-sm font-medium px-6 py-3 rounded-md hover:bg-brand-gold/80 transition-colors">
-                        Post a ride
-                    </button>
+
+                    <Link to="post_ride_page">
+                        <button className="mt-2 w-fit bg-brand-gold text-brand-light text-sm font-medium px-6 py-3 rounded-md hover:bg-brand-gold/80 transition-colors">
+                            Post a ride
+                        </button>
+                    </Link>
                 </div>
             </div>
         </section>
