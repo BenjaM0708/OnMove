@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../../services/supabase'
 import { Database } from '../../types/types';
+import { Link } from 'react-router-dom';
 
 type CarRideInfo = Database['public']['Tables']['car_ride']['Row']
 /*
@@ -103,25 +104,25 @@ export default function GetRides() {
                         </div>
 
                         {/* Fila inferior: fecha y asientos */}
-            <div className="flex items-center justify-between mt-4 pt-4 border-t border-brand-dark/10">
-                <span className="text-sm text-brand-dark/60">
-                    {new Date(carRide.origin_datetime).toLocaleDateString([], { weekday: 'short', day: 'numeric', month: 'short' })}
-                </span>
-                <span className="text-sm font-medium text-brand-navy bg-brand-navy/10 px-3 py-1 rounded-full">
-                    {carRide.free_seats} {carRide.free_seats === 1 ? 'seat' : 'seats'} available
-                </span>
-            </div>
+                        <div className="flex items-center justify-between mt-4 pt-4 border-t border-brand-dark/10 gap-1">
+                            <span className="text-sm text-brand-dark/60">
+                                {new Date(carRide.origin_datetime).toLocaleDateString([], { weekday: 'short', day: 'numeric', month: 'short' })}
+                            </span>
+                            <span className="text-sm text-center font-medium text-brand-navy bg-brand-navy/10 px-3 py-1 rounded-full">
+                                {carRide.free_seats} {carRide.free_seats === 1 ? 'seat' : 'seats'} available
+                            </span>
+                        </div>
 
             {/* Botón unirse */}
-            <button
-                className="mt-4 w-full bg-brand-navy text-brand-light text-sm font-medium py-2.5 rounded-md hover:bg-brand-navy/80 transition-colors"
-            >
-                Join this ride
-            </button>
-
+            <Link to={`/rides/${carRide.car_ride_id}`}>
+                <button
+                    className="mt-4 w-full bg-brand-navy text-brand-light text-sm font-medium py-2.5 rounded-md hover:bg-brand-navy/80 transition-colors">
+                    Check this ride
+                </button>
+            </Link>
                     </li>
                 ))}
-       </ul>  
+            </ul>  
 
         </div>
     </div>

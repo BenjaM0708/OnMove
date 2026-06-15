@@ -30,11 +30,11 @@ interface rideData extends rideInfo {
     destination_location_lat: string;
 }
 
-export const useGetRides = () => {
-    const [rides, setRides] = useState([] as rideData[])
+export const useGRide = ( id: string ) => {
+    const [ride, setRide] = useState({} as rideData)
 
         useEffect(() => {
-            async function fetchRides(): Promise<void> {
+            async function fetchRide(): Promise<void> {
                 const { data, error } = await supabase
                     // Function to get Near Rides
                     ./*rpc('origin_locations_by_distance', {
@@ -43,7 +43,9 @@ export const useGetRides = () => {
                     })*/
                     // Get a single element by 
                     from('car_ride') 
-                    .select();
+                    .select()
+                    .eq('car_ride_id', id)
+                    .single();
     
                 if (error) {
                     console.error('Error:', error.message, error.details);
@@ -52,13 +54,11 @@ export const useGetRides = () => {
     
                 if (data) {
                     console.log('Data recibed', data)
-                    setRides(data as rideData[])
+                    setRide(data as rideData)
                 }
             }
-            fetchRides()
+            fetchRide()
         }, [])
         
-    return rides;
+    return ride;
 }
-
-

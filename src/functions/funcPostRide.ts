@@ -9,7 +9,7 @@ export const funcPostRide = async (dataPost: RideDataPost) : Promise<void> => {
         .insert(dataPost)
 
     if (error) {
-      alert("Something Wrong Happened. Tha Rid couldn't be Posted. Please Try Again")
+      alert("Something Wrong Happened. That Ride couldn't be Posted. Please Try Again")
       console.error('Error:', error.message, error.details)
       return
     }

@@ -5,6 +5,8 @@ import MapPage from './pages/MapPage'
 import About from './pages/About'
 import PostRidePage from './pages/PostRidePage'
 import Home from './pages/Home'
+import RideDetailPage from './pages/RideDetailsPage'
+
 
 
 function App() {
@@ -21,6 +23,7 @@ function App() {
               <Route path="/map_page" element={<MapPage />} />
               <Route path="/post_ride_page" element={<PostRidePage />} />
               <Route path="/about" element={<About />} />
+              <Route path="/rides/:car_ride_id" element={<RideDetailPage />} />
             </Routes>
           </main>
         </div>
