@@ -1,4 +1,4 @@
-import React, { JSX, useEffect, useState } from 'react'
+import React, { JSX, useState } from 'react'
 import MiniMap from '../features/map/MiniMap'
 import { IoCheckmarkCircle, IoReloadCircle, IoReload } from "react-icons/io5";
 
@@ -114,7 +114,7 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
                     name="contact"
                     required
                     placeholder="600 00 00 00"
-                    pattern="[0-9]{3} [0-9]{2} [0-9]{2} [0-9]{2}"
+                    pattern="[0-9]{9}"
                     className="border border-brand-dark/20 rounded-md px-4 py-3 text-sm text-brand-dark bg-white focus:outline-none focus:border-brand-navy transition-colors"
                     />
                 </div>
