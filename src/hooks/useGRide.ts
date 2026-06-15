@@ -37,12 +37,10 @@ export const useGRide = ( id: string ) => {
             async function fetchRide(): Promise<void> {
                 const { data, error } = await supabase
                     // Function to get Near Rides
-                    ./*rpc('origin_locations_by_distance', {
+                    .rpc('origin_locations_by_distance', {
                         searchlong: -4.11839,
                         searchlat: 40.94808
-                    })*/
-                    // Get a single element by 
-                    from('car_ride') 
+                    })
                     .select()
                     .eq('car_ride_id', id)
                     .single();

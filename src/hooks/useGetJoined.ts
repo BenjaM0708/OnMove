@@ -5,7 +5,7 @@ import { JoinedRide } from '../types/joined_ride_type'
 type UsersJoined = JoinedRide['joined_ride']['Row']
 
 export function useGetJoined(id: string) {
-    const [usersJoined, setUsersJoined] = useState({} as UsersJoined[])
+    const [usersJoined, setUsersJoined] = useState([] as UsersJoined[])
 
     useEffect(() => {
         async function fetchUsersJoined(): Promise<void> {

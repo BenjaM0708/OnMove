@@ -1,6 +1,5 @@
 import React from 'react'
-import { GoogleMap, InfoWindow, Marker, useJsApiLoader } from '@react-google-maps/api'
-import { useGeolocation } from '../../hooks/useGeolocation'
+import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api'
 
 // Use a loose type for libraries to avoid mismatches with @react-google-maps/api Library type
 const libraries: any[] = ['places']
@@ -17,9 +16,24 @@ function Map(object: any) {
   })
 
   //Map Configuration
-  const coordinates = { lat:object.origin.lat, lng:object.origin.lng }
-  const center = coordinates || defaultCenter
+  
+  const originLat = Number(object.origin_lat)
+  const originLng = Number(object.origin_lng)
+  const destinationLat = Number(object.destination_lat)
+  const destinationLng = Number(object.destination_lng)
+
+  const hasValidOrigin = Number.isFinite(originLat) && Number.isFinite(originLng)
+  const hasValidDestination = Number.isFinite(destinationLat) && Number.isFinite(destinationLng)
+
+  const center = hasValidOrigin
+    ? { lat: originLat, lng: originLng }
+    : defaultCenter
   const [map, setMap] = React.useState(null)
+
+  // test
+  console.log('Ride Map', object)
+  console.log('center', center)
+
 
   const onLoad = React.useCallback(function callback(map: any) {
     
@@ -67,15 +81,15 @@ function Map(object: any) {
         
           <Marker
           position={{
-            lat:object.origin_lat,
-            lng:object.origin_lng
+            lat:originLat,
+            lng:originLng
           }}
           />
 
           <Marker
           position={{
-            lat:object.destination_lat,
-            lng:object.destination_lng
+            lat:destinationLat,
+            lng:destinationLng
           }}
           />
       </GoogleMap>

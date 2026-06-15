@@ -22,6 +22,7 @@ export default function RideDetailsPage() {
         destination_lng: ride.destination_location_long
     }
 
+    console.log('Details Ride', ride)
     return (
       <div className="min-h-screen bg-brand-light pt-24 px-6">
         <div className="max-w-5xl mx-auto py-16">
@@ -79,9 +80,13 @@ export default function RideDetailsPage() {
                     </div>
 
                     {/* RideMap */}
+                    {!ride.origin_location_lat || !ride.origin_location_long ? (
+                        <div className='text-center'>Loading ride...</div>
+                    ) : (
                      <div className="rounded-lg overflow-hidden border border-brand-dark/10 shadow-sm h-64 bg-brand-navy/10 flex items-center justify-center">
                         <RideMap mapObject={mapObject} />
                     </div>
+                    )}
 
                 </div>
 
