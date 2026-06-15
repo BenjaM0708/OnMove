@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useGRide } from "../hooks/useGRide"
 import { useGetJoined } from "../hooks/useGetJoined"
 import RideMap from "../features/map/RideMap"
@@ -27,6 +27,10 @@ export default function RideDetailsPage() {
         destination_lng: ride.destination_location_long
     }
 
+    // Seat Counter
+
+    const seatCounter = ride.free_seats - usersJoined.length
+
     return (
       <div className="min-h-screen bg-brand-light pt-24 px-6">
         <div className="max-w-5xl mx-auto py-16">
@@ -35,10 +39,10 @@ export default function RideDetailsPage() {
             <div className="flex flex-col gap-2 mb-10">
                 <div className="w-12 h-1 bg-brand-gold rounded-full">&nbsp;</div>
                 <h1 className="font-display text-4xl font-semibold text-brand-navy leading-tight">
-                    Join
+                    Details
                 </h1>
                 <p className="text-brand-dark/70 text-base">
-                    Browse rides shared by the community and find your match.
+                    Join and enjoy the ease of traveling with OnMove.
                 </p>
             </div>
 
@@ -78,7 +82,7 @@ export default function RideDetailsPage() {
                                 {new Date(ride.origin_datetime).toLocaleDateString([], { weekday: 'short', day: 'numeric', month: 'short' })}
                             </span>
                             <span className="text-sm font-medium text-brand-navy bg-brand-navy/10 px-3 py-1 rounded-full">
-                                {ride.free_seats} {ride.free_seats === 1 ? 'seat' : 'seats'} available
+                                {seatCounter} {seatCounter === 1 ? 'seat' : 'seats'} available
                             </span>
                         </div>
                     </div>

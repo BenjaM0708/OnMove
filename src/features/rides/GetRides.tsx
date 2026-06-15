@@ -53,9 +53,7 @@ export default function GetRides() {
                 console.log('Data recibed', data)
                 setCarRides(data as CarRideData[])
             }
-
         }
-
         fetchCarRides()
     }, [])
 

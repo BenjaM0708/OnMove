@@ -2,13 +2,13 @@ import React from 'react'
 import { GoogleMap, InfoWindow, Marker, useJsApiLoader } from '@react-google-maps/api'
 import { useGeolocation } from '../../hooks/useGeolocation'
 import { useGetRides } from '../../hooks/useGetRides'
+import { Link } from 'react-router-dom'
 
 // Use a loose type for libraries to avoid mismatches with @react-google-maps/api Library type
 const libraries: any[] = ['places']
 
 const containerStyle = { width: '100%', height: '100%' }
 const defaultCenter = { lat: 40.4169, lng: -3.7033 }
-
 
 function Map() {
   const { isLoaded } = useJsApiLoader({
@@ -149,9 +149,13 @@ function Map() {
       <p><span className='font-medium text-brand-gold'>Date</span>: {new Date(infoSelected.origin_datetime).toLocaleDateString()}</p>
       <p><span className='font-medium text-brand-gold'>Time</span>: {new Date(infoSelected.origin_datetime).toLocaleTimeString()}</p>
     </div>
-    <button className='mt-3 w-full bg-brand-navy text-brand-light text-sm font-medium py-2 rounded-md hover:bg-brand-navy/80 transition-colors'>
-      Join
-    </button>
+
+    <Link to={`/rides/${infoSelected.car_ride_id}`}>
+      <button className='mt-3 w-full bg-brand-navy text-brand-light text-sm font-medium py-2 rounded-md hover:bg-brand-navy/80 transition-colors'>
+        Join
+      </button>
+    </Link>
+
   </div>
 </InfoWindow>) : null}
 

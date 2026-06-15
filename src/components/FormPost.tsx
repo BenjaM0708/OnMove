@@ -50,6 +50,7 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
 
                     <div className='flex flex-col'>
                         <p className='font-display font-semibold text-brand-navy leading-tight'>Select your Places</p>
+                        <p className='font-dispaly text-brand-dark leading-tight text-[10px] pt-1'>Enter the so origin first, then the destination</p>
                         <div className='rounded-lg overflow-hidden border-2 border-brand-navy/30 shadow-sm mt-4'>
                             {/*Note that 'uploadCoordFunction' is just a name to the parameter and prop. In this case
                             is the same for both. It coul be change in line 6 renaming the second parameter
