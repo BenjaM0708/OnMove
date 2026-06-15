@@ -1,7 +1,7 @@
 import { funcJoinRide } from "../functions/funcJoinRide";
 import { JoinedRide } from "../types/joined_ride_type";
 
-export default function FormJoin(id: any) {
+export default function FormJoin({ id, reff } : { id: string | undefined , reff: any }) {
 
     //Take the Information from user to send Supabase
         const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
@@ -12,13 +12,14 @@ export default function FormJoin(id: any) {
             const data: JoinedRide['joined_ride']['Insert'] = {
                 name_user_joined: formData.get('name')?.toString() as string,
                 contact_user_joined: formData.get('contact')?.toString() as string,
-                ride_id: BigInt(Number(id))
+                ride_id: BigInt(id as string)
             }
 
             try {await funcJoinRide(data)
             } catch (error) {console.log('Something Wrong Happened. Try Again')}
 
             form.reset()
+            reff((prev:boolean) => !prev)
             return
         }
 

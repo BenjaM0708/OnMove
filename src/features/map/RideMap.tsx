@@ -8,7 +8,7 @@ const containerStyle = { width: '100%', height: '100%' }
 const defaultCenter = { lat: 40.4169, lng: -3.7033 }
 
 
-function Map(object: any) {
+function Map(propObj: any) {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '',
@@ -16,22 +16,20 @@ function Map(object: any) {
   })
 
   //Map Configuration
+  console.log('propObj', propObj)
   
-  const originLat = Number(object.origin_lat)
-  const originLng = Number(object.origin_lng)
-  const destinationLat = Number(object.destination_lat)
-  const destinationLng = Number(object.destination_lng)
+  const originLat = Number(propObj.propObj.origin_lat)
+  const originLng = Number(propObj.propObj.origin_lng)
+  const destinationLat = Number(propObj.propObj.destination_lat)
+  const destinationLng = Number(propObj.propObj.destination_lng)
 
-  const hasValidOrigin = Number.isFinite(originLat) && Number.isFinite(originLng)
-  const hasValidDestination = Number.isFinite(destinationLat) && Number.isFinite(destinationLng)
-
-  const center = hasValidOrigin
+  const center = (originLat && originLng)
     ? { lat: originLat, lng: originLng }
     : defaultCenter
   const [map, setMap] = React.useState(null)
 
   // test
-  console.log('Ride Map', object)
+  console.log('Ride Map', propObj)
   console.log('center', center)
 
 

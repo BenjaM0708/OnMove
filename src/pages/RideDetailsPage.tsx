@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useGRide } from "../hooks/useGRide"
 import { useGetJoined } from "../hooks/useGetJoined"
 import RideMap from "../features/map/RideMap"
@@ -8,11 +8,16 @@ import FormJoin from "../components/FormJoin"
 export default function RideDetailsPage() {
     
     // Get the Info of car_ride
+    const [ reload, setReload ] = useState(false)
+
     const { car_ride_id } = useParams()
-    const ride = useGRide(`${car_ride_id}`)
+    const { ride, loading } = useGRide(`${car_ride_id}`)
 
     // Get the Info of joined_ride
-    const usersJoined = useGetJoined(`${car_ride_id}`)
+    const usersJoined = useGetJoined({id:`${car_ride_id}`, reload})
+    if(loading || !ride) {
+        return <div className="min-h-screen bg-brand-light pt-24 px-6">Loading ride...</div>
+    }
 
     // Map Object
     const mapObject = {
@@ -22,7 +27,6 @@ export default function RideDetailsPage() {
         destination_lng: ride.destination_location_long
     }
 
-    console.log('Details Ride', ride)
     return (
       <div className="min-h-screen bg-brand-light pt-24 px-6">
         <div className="max-w-5xl mx-auto py-16">
@@ -84,7 +88,7 @@ export default function RideDetailsPage() {
                         <div className='text-center'>Loading ride...</div>
                     ) : (
                      <div className="rounded-lg overflow-hidden border border-brand-dark/10 shadow-sm h-64 bg-brand-navy/10 flex items-center justify-center">
-                        <RideMap mapObject={mapObject} />
+                        <RideMap propObj={mapObject} />
                     </div>
                     )}
 
@@ -120,8 +124,8 @@ export default function RideDetailsPage() {
                         <h2 className="font-display text-lg font-semibold text-brand-navy mb-4">
                         Join this ride
                         </h2>
-
-                        <FormJoin id={car_ride_id} />
+                        
+                        <FormJoin id={car_ride_id} reff={setReload} />
                     </div>
                 </div>
 

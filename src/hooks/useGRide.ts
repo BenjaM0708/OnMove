@@ -31,10 +31,12 @@ interface rideData extends rideInfo {
 }
 
 export const useGRide = ( id: string ) => {
-    const [ride, setRide] = useState({} as rideData)
+    const [ride, setRide] = useState< rideData | null >(null)
+    const [loading, setLoading] = useState(true)
 
         useEffect(() => {
             async function fetchRide(): Promise<void> {
+                setLoading(true)
                 const { data, error } = await supabase
                     // Function to get Near Rides
                     .rpc('origin_locations_by_distance', {
@@ -54,9 +56,10 @@ export const useGRide = ( id: string ) => {
                     console.log('Data recibed', data)
                     setRide(data as rideData)
                 }
+                setLoading(false)
             }
             fetchRide()
-        }, [])
+        }, [id])
         
-    return ride;
+    return { ride, loading }
 }

@@ -4,7 +4,7 @@ import { JoinedRide } from '../types/joined_ride_type'
 
 type UsersJoined = JoinedRide['joined_ride']['Row']
 
-export function useGetJoined(id: string) {
+export function useGetJoined({id, reload}: { id: string, reload: boolean}) {
     const [usersJoined, setUsersJoined] = useState([] as UsersJoined[])
 
     useEffect(() => {
@@ -25,7 +25,7 @@ export function useGetJoined(id: string) {
             }
         }
         fetchUsersJoined()
-    }, [])
+    }, [id, reload])
 
     return usersJoined;
 }     
