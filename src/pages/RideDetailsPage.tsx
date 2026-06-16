@@ -34,7 +34,7 @@ export default function RideDetailsPage() {
 
     return (
       <div className="min-h-screen bg-brand-light pt-24 px-6">
-        <div className="max-w-5xl mx-auto py-16">
+        <div className="max-w-6xl mx-auto py-16">
          
             {/* Header */}
             <div className="flex flex-col gap-2 mb-10">
@@ -48,7 +48,7 @@ export default function RideDetailsPage() {
             </div>
 
             {/* RideMap */}
-             <div className="w-2/3 mx-auto mb-10 rounded-lg overflow-hidden border border-brand-dark/10 shadow-sm h-72 bg-brand-navy/10 flex items-center justify-center">
+             <div className="w-full mx-auto mb-10 rounded-lg overflow-hidden border border-brand-dark/10 shadow-sm h-80 md:h-96 bg-brand-navy/10 flex items-center justify-center">
                 {!ride.origin_location_lat || !ride.origin_location_long ? (
                    <div className='text-center'>Loading Ride...</div>
                 ):(
@@ -60,7 +60,7 @@ export default function RideDetailsPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
 
                 {/* Left*/}
-                <div className="flex flex-col gap-6">
+                <div className="flex flex-col gap-6 mb-6 lg:mb-0">
                     <div className="border border-brand-dark/10 rounded-lg p-6 bg-white shadow-sm">
                         <div className="flex items-center justify-between mb-4">
                             <span className="font-display font-semibold text-lg text-brand-navy">
@@ -88,7 +88,7 @@ export default function RideDetailsPage() {
                                 {new Date(ride.origin_datetime).toLocaleDateString([], { weekday: 'short', day: 'numeric', month: 'short' })}
                             </span>
                             <span className="text-sm font-medium text-brand-navy bg-brand-navy/10 px-3 py-1 rounded-full">
-                                {ride.free_seats} {ride.free_seats === 1 ? 'seat' : 'seats'} available
+                                {seatCounter} {seatCounter === 1 ? 'seat' : 'seats'} available
                             </span>
                         </div>
                     </div>
@@ -113,7 +113,7 @@ export default function RideDetailsPage() {
                             {usersJoined.map((user: JoinedRide['joined_ride']['Row']) => (
                             <li key={user.joined_id} className="flex items-center justify-between py-3 border-b border-brand-dark/10 last:border-0">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-8 h-8 rounded-full bg-brand-navy/10 flex items-center justify-center">
+                                    <div className="w-8 h-8 rounded-full bg-brand-gold/20 flex items-center justify-center">
                                         <span className="text-brand-navy text-xs font-semibold">
                                         {user.name_user_joined.charAt(0).toUpperCase()}
                                         </span>

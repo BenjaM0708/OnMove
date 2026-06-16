@@ -145,8 +145,6 @@ console.log("This is coordObject and status flow", coordObject, flowInfo)
 
         {coordOnClick && (
           <>
-            {/*<Marker position={coordOnClick} />*/}
-
             <InfoWindow
               position={coordOnClick}
               options={{
@@ -158,7 +156,9 @@ console.log("This is coordObject and status flow", coordObject, flowInfo)
               </button>
             </InfoWindow>
           </>
-        )}
+          )
+        }
+
       </GoogleMap>
     </>
   ) : (

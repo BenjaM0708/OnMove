@@ -1,5 +1,6 @@
 import React from 'react'
-import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api'
+import { GoogleMap, Marker, useJsApiLoader, DirectionsRenderer, DirectionsService } from '@react-google-maps/api'
+import { IoFlag, IoFlagOutline, IoCar, IoPin } from "react-icons/io5";
 
 // Use a loose type for libraries to avoid mismatches with @react-google-maps/api Library type
 const libraries: any[] = ['places']
@@ -23,26 +24,42 @@ function Map(propObj: any) {
   const destinationLat = Number(propObj.propObj.destination_lat)
   const destinationLng = Number(propObj.propObj.destination_lng)
 
+  const boundsMarkers = [
+      { lat: originLat, lng: originLng },
+      { lat: destinationLat, lng: destinationLng }
+    ]
+
   const center = (originLat && originLng)
     ? { lat: originLat, lng: originLng }
     : defaultCenter
   const [map, setMap] = React.useState(null)
 
-  // test
-  console.log('Ride Map', propObj)
-  console.log('center', center)
+  const [requested, setRequested] = React.useState(true)
+  const [response, setResponse] = React.useState(null)
 
+  const callback = (response: any, status: any) => {
+    if (status === 'OK') {
+      setResponse(response)
+      setRequested(false)
+    }}
+    console.log('response', response)
 
   const onLoad = React.useCallback(function callback(map: any) {
-    
-    const bounds = new window.google.maps.LatLngBounds(center)
-    //map.fitBounds(bounds)
+    const bounds = new window.google.maps.LatLngBounds()
+    boundsMarkers.forEach(m => bounds.extend({ lat: m.lat, lng: m.lng }))
+    map.fitBounds(bounds)
     setMap(map)
-  }, [center])
+  }, [boundsMarkers])
 
   const onUnmount = React.useCallback(function callback(map: any) {
     setMap(null)
   }, [])
+
+  const onLoadMarker = React.useCallback(function callback(marker: Marker) {
+  }, [])
+
+  const onUnmountMarker = React.useCallback((marker: Marker) => {}, [])
+
 
   //Map Render
 
@@ -63,33 +80,50 @@ function Map(propObj: any) {
           gestureHandling: 'greedy'
         }}
       >
-        {/*<Marker //User Position
-        position={center} 
-        title='Current Location'
-        icon={{
-          path: window.google.maps.SymbolPath.CIRCLE,
-          fillColor: "#4285F4",    
-          fillOpacity: 0.9,        
-          scale: 8,                
-          strokeColor: "#FFFFFF",  
-          strokeWeight: 2,  
-              }}
-        />*/}
+         {requested && (
+          <DirectionsService
+            options={{
+              origin: boundsMarkers[0],
+              destination: boundsMarkers[1],
+              travelMode: window.google.maps.TravelMode.DRIVING,
+            }}
+            callback={callback}
+          />
+        )}
 
-        
-          <Marker
+        {response && (
+          <DirectionsRenderer
+            directions={response}
+            options={{
+              polylineOptions: { strokeColor: '#0750b5', strokeWeight: 5, strokeOpacity: 0.5},
+              suppressMarkers: false,
+              markerOptions: { icon:  {
+                    path: window.google.maps.SymbolPath.CIRCLE,
+                    scale: 5,
+                    fillColor: '#dbb15c',
+                    fillOpacity: 1,
+                    strokeColor: '#705011',
+                    strokeWeight: 2,
+              }},
+              suppressInfoWindows: false,
+            }}
+          />
+        )}
+
+        <Marker
           position={{
             lat:originLat,
             lng:originLng
           }}
-          />
+        />
 
-          <Marker
+        <Marker
           position={{
             lat:destinationLat,
             lng:destinationLng
           }}
-          />
+        />
+
       </GoogleMap>
     </>
   ) : (
