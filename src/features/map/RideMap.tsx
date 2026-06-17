@@ -55,12 +55,6 @@ function Map(propObj: any) {
     setMap(null)
   }, [])
 
-  const onLoadMarker = React.useCallback(function callback(marker: Marker) {
-  }, [])
-
-  const onUnmountMarker = React.useCallback((marker: Marker) => {}, [])
-
-
   //Map Render
 
   return isLoaded ? (
@@ -95,7 +89,7 @@ function Map(propObj: any) {
           <DirectionsRenderer
             directions={response}
             options={{
-              polylineOptions: { strokeColor: '#0750b5', strokeWeight: 5, strokeOpacity: 0.5},
+              polylineOptions: { strokeColor: '#05c9f0', strokeWeight: 5, strokeOpacity: 0.5},
               suppressMarkers: false,
               markerOptions: { icon:  {
                     path: window.google.maps.SymbolPath.CIRCLE,

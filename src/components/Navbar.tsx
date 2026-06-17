@@ -61,8 +61,8 @@ function Navbar() {
 
            {/*Burger menu in Navbar - Static*/}
           <div className="px-6 py-6 flex flex-col gap-1">
-            <Link to="/rides" className={`py-2 text-base transition-colors ${isHome ? "border-brand-dark/10" : "border-brand-cream/10"} ${theme.text}`}>Rides</Link>
             <Link to="/map_page" className={`py-2 text-base transition-colors ${isHome ? "border-brand-dark/10" : "border-brand-cream/10"} ${theme.text}`}>Map</Link>
+            <Link to="/rides" className={`py-2 text-base transition-colors ${isHome ? "border-brand-dark/10" : "border-brand-cream/10"} ${theme.text}`}>Rides</Link>
             <Link to='/post_ride_page' className={`py-2 text-base transition-colors ${isHome ? "border-brand-dark/10" : "border-brand-cream/10"} ${theme.text}`}>Post</Link>
             <Link to="/about" className={`mt-2 py-3 text-base text-center rounded-full transition-colors ${theme.button}`}>About</Link>
           </div>
@@ -72,8 +72,8 @@ function Navbar() {
         <div className="flex items-center gap-4">
 
           <div className="hidden md:flex items-center gap-8">
-            <Link to="/rides" className={`text-sm transition-colors ${theme.text}`}>Rides</Link>
             <Link to="/map_page" className={`text-sm transition-colors ${theme.text}`}>Map</Link>
+            <Link to="/rides" className={`text-sm transition-colors ${theme.text}`}>Rides</Link>
             <Link to='/post_ride_page' className={`text-sm transition-colors ${theme.text}`}>Post</Link>
             <Link to="/about" className={`text-sm px-5 py-2 rounded-full transition-colors ${theme.button}`}>About</Link>
           </div>

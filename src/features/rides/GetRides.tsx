@@ -106,16 +106,18 @@ export default function GetRides() {
                             <span className="text-sm text-brand-dark/60">
                                 {new Date(carRide.origin_datetime).toLocaleDateString([], { weekday: 'short', day: 'numeric', month: 'short' })}
                             </span>
+                            {/* Commented now until backend update
                             <span className="text-sm text-center font-medium text-brand-navy bg-brand-navy/10 px-3 py-1 rounded-full">
                                 {carRide.free_seats} {carRide.free_seats === 1 ? 'seat' : 'seats'} available
                             </span>
+                            */}
                         </div>
 
             {/* Botón unirse */}
             <Link to={`/rides/${carRide.car_ride_id}`}>
                 <button
                     className="mt-4 w-full bg-brand-navy text-brand-light text-sm font-medium py-2.5 rounded-md hover:bg-brand-navy/80 transition-colors">
-                    Check this ride
+                    Check this Ride
                 </button>
             </Link>
                     </li>

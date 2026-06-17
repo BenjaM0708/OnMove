@@ -57,10 +57,10 @@ export default function RideDetailsPage() {
             </div>
 
             {/* Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+            <div className="grid grid-cols-1 gap-10 items-start">
 
                 {/* Left*/}
-                <div className="flex flex-col gap-6 mb-6 lg:mb-0">
+                <div className="flex flex-col gap-6">
                     <div className="border border-brand-dark/10 rounded-lg p-6 bg-white shadow-sm">
                         <div className="flex items-center justify-between mb-4">
                             <span className="font-display font-semibold text-lg text-brand-navy">
@@ -93,7 +93,6 @@ export default function RideDetailsPage() {
                         </div>
                     </div>
                 </div>
-            </div>
 
                 {/* Right */}
                 <div className="flex flex-col gap-6">
@@ -139,7 +138,11 @@ export default function RideDetailsPage() {
                     </h2>
                     <FormJoin id={car_ride_id} reff={setReload} /> 
                 </div>
+                </div>
+
             </div>
+
+                
         </div>
       </div>
     )

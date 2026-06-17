@@ -145,14 +145,16 @@ function Map() {
     <div className='flex flex-col gap-1 text-sm text-brand-dark'>
       <p><span className='font-medium text-brand-gold'>Origin</span>: {infoSelected.origin_description}</p>
       <p><span className='font-medium text-brand-gold'>Destination</span>: {infoSelected.destination_description}</p>
+      {/* Commented now until backend update
       <p><span className='font-medium text-brand-gold'>Free Seats</span>: {infoSelected.free_seats}</p>
+      */}
       <p><span className='font-medium text-brand-gold'>Date</span>: {new Date(infoSelected.origin_datetime).toLocaleDateString()}</p>
       <p><span className='font-medium text-brand-gold'>Time</span>: {new Date(infoSelected.origin_datetime).toLocaleTimeString()}</p>
     </div>
 
     <Link to={`/rides/${infoSelected.car_ride_id}`}>
       <button className='mt-3 w-full bg-brand-navy text-brand-light text-sm font-medium py-2 rounded-md hover:bg-brand-navy/80 transition-colors'>
-        Join
+        Check this Ride
       </button>
     </Link>
 

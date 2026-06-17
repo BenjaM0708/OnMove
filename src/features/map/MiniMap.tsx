@@ -45,6 +45,11 @@ function MiniMap({ uploadCoordFunction, flowInfo, flowInfoFunction, resetLocatio
     setMap(null)
   }, [])
 
+  // Markers Render
+
+  const onLoadMarker = React.useCallback(function callback(marker: google.maps.Marker) {}, [])
+  const onUnmountMarker = React.useCallback((marker: google.maps.Marker) => {}, [])
+
   //Data from click
   
   const [coordOnClick, setCoordOnClick] = React.useState<{lat: number, lng: number} | null>(null)
@@ -156,9 +161,37 @@ console.log("This is coordObject and status flow", coordObject, flowInfo)
               </button>
             </InfoWindow>
           </>
-          )
-        }
+        )}
 
+         {flowInfo !== 'origin' && coordObject?.origin && (
+                <Marker 
+                  position={coordObject.origin}
+                  onLoad={onLoadMarker}
+                  icon={{
+                    path: window.google.maps.SymbolPath.CIRCLE,
+                    fillColor: "#E5AA1E",    
+                    fillOpacity: 0.9,        
+                    scale: 8,                
+                    strokeColor: "#7d0909",  
+                    strokeWeight: 2,  
+                  }}
+                />
+         )}
+         {flowInfo !== 'origin' && coordObject?.destination && (
+                <Marker 
+                  position={coordObject.destination}
+                  onLoad={onLoadMarker}
+                  icon={{
+                    path: window.google.maps.SymbolPath.CIRCLE,
+                    fillColor: "#233047",    
+                    fillOpacity: 0.9,        
+                    scale: 8,                
+                    strokeColor: "#7d0909",  
+                    strokeWeight: 2,  
+                  }}
+                />
+         )}
+        
       </GoogleMap>
     </>
   ) : (
