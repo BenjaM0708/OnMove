@@ -89,14 +89,14 @@ function Map(propObj: any) {
           <DirectionsRenderer
             directions={response}
             options={{
-              polylineOptions: { strokeColor: '#05c9f0', strokeWeight: 5, strokeOpacity: 0.5},
+              polylineOptions: { strokeColor: '#eb5505', strokeWeight: 5, strokeOpacity: 0.5},
               suppressMarkers: false,
               markerOptions: { icon:  {
                     path: window.google.maps.SymbolPath.CIRCLE,
                     scale: 5,
-                    fillColor: '#dbb15c',
+                    fillColor: '#245c8c',
                     fillOpacity: 1,
-                    strokeColor: '#705011',
+                    strokeColor: '#2562c4',
                     strokeWeight: 2,
               }},
               suppressInfoWindows: false,

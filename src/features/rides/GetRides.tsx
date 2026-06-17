@@ -88,7 +88,7 @@ export default function GetRides() {
                             </span>
                         </div>
 
-                        {/*La salud empieza a desaparer*/}
+                        {/**/}
                         <div className="flex items-center gap-3">
                             <div className="flex flex-col items-center">
                                 <span className="w-2 h-2 rounded-full bg-brand-gold">&nbsp;</span>
@@ -106,11 +106,14 @@ export default function GetRides() {
                             <span className="text-sm text-brand-dark/60">
                                 {new Date(carRide.origin_datetime).toLocaleDateString([], { weekday: 'short', day: 'numeric', month: 'short' })}
                             </span>
-                            {/* Commented now until backend update
+                            {/* Commented now until backend update - Let's put some similar
                             <span className="text-sm text-center font-medium text-brand-navy bg-brand-navy/10 px-3 py-1 rounded-full">
                                 {carRide.free_seats} {carRide.free_seats === 1 ? 'seat' : 'seats'} available
                             </span>
                             */}
+                            <span className="text-sm text-center font-medium text-brand-navy bg-brand-navy/10 px-3 py-1 rounded-full">
+                                Check free seats available
+                            </span>
                         </div>
 
             {/* Botón unirse */}

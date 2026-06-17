@@ -3,6 +3,7 @@ import { GoogleMap, InfoWindow, Marker, useJsApiLoader } from '@react-google-map
 import { useGeolocation } from '../../hooks/useGeolocation'
 import { useGetRides } from '../../hooks/useGetRides'
 import { Link } from 'react-router-dom'
+import { IoCloseCircle } from 'react-icons/io5'
 
 // Use a loose type for libraries to avoid mismatches with @react-google-maps/api Library type
 const libraries: any[] = ['places']
@@ -140,7 +141,9 @@ function Map() {
   <div className='flex flex-col font-body'>
     <div className="flex justify-between items-center mb-2 gap-3">
   <h2 className='font-display text-base font-semibold text-brand-navy'>{infoSelected.driver_name}'s Ride</h2>
-  <button onClick={() => setInfoSelected(null)} className='text-brand-dark/50 text-lg font-bold hover:text-brand-dark transition-colors flex-shrink-0'>×</button>
+  <button onClick={() => setInfoSelected(null)} className='text-brand-dark/50 text-lg font-bold hover:text-brand-dark transition-colors flex-shrink-0'>
+    <IoCloseCircle className='h-5 w-5' />
+  </button>
 </div>
     <div className='flex flex-col gap-1 text-sm text-brand-dark'>
       <p><span className='font-medium text-brand-gold'>Origin</span>: {infoSelected.origin_description}</p>

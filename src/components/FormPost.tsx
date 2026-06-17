@@ -36,7 +36,7 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
 
     return(
         <div className="min-h-screen bg-brand-light pt-20 px-6">
-          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-start py-16">
+          <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start py-16">
             
             {/* Left Col - Form */}
             <div className="flex flex-col gap-6">

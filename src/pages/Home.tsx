@@ -1,5 +1,7 @@
 import { Card } from 'flowbite-react'
 import { Link } from 'react-router-dom'
+import logoOnmove from '../assets/LogoPrincipalOnmove.png'
+
 
 const cardTheme = {
     root: {
@@ -33,12 +35,12 @@ export default function Home() {
                 <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/80 to-black/70"></div>
 
                 <div className="z-10 relativeflex flex-col items-center gap-6 text-center px-6 max-w-3xl">
-                    <div className='h-[300px] md:h-[450px] lg:h-[480px] w-auto overflow-hidden flex items-center justify-center'>
-                        <img src="src\assets\LogoPrincipalOnmove.png" alt="Onmove logo"
+                    <div className='h-[300px] md:h-[450px] lg:h-[460px] w-auto overflow-hidden flex items-center justify-center'>
+                        <img src={logoOnmove} alt="Onmove logo"
                             className='h-full shadow-lg brightness-110' />
                     </div>
-                    <div className='-mt-14 lg:-mt-28'>
-                        <h1 className="font-display text-4xl md:text-6xl font-bold text-brand-light leading-tight text-s">
+                    <div className='-mt-14 md:-mt-[120px]'>
+                        <h1 className="font-display text-4xl font-bold text-brand-light leading-tight text-s">
                             Move together, <span className="text-brand-gold ">Save together</span>
                         </h1>
                         <p className="text-brand-light/80 text-base mt-3 md:text-lg">
@@ -55,7 +57,9 @@ export default function Home() {
             {/* Presentation */}
             <section className="bg-brand-navy">
                 <div className="mas-w-5xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                    <div className="rounded-2xl h-65 md:h-80 flex items-center leading-tight"><span className="text-brand-light">Imagen</span></div>
+                    <div className="rounded-2xl h-64 md:h-80 overflow-hidden shadow-xl">
+                        <img src="/presentation-home-picture.jpg" alt='People talking in a car' className='h-full w-full object-cover object-top' />
+                    </div>
                     {/* Text */}
                     <div className="flex flex-col gap-4">
                         <div className="w-12 h-1 bg-brand-gold rounded-full">&nbsp;</div>
@@ -91,8 +95,8 @@ export default function Home() {
                     </div>
 
                     {/* Imagen placeholder derecha */}
-                    <div className="bg-brand-navy/10 rounded-2xl h-64 md:h-80 flex items-center justify-center order-first md:order-last">
-                        <span className="text-brand-dark/30 text-sm">Image coming soon</span>
+                    <div className="rounded-2xl h-64 md:h-80 overflow-hidden shadow-xl order-first md:order-last">
+                        <img src="browse-home-picture.png" alt="Cars on the route" className="h-full w-full object-cover object-center" />
                     </div>
                 </div>
             </section>
@@ -102,8 +106,8 @@ export default function Home() {
                 <div className="max-w-5xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
                     {/* Imagen placeholder izquierda */}
-                    <div className="bg-brand-dark/50 rounded-2xl h-64 md:h-80 flex items-center justify-center">
-                        <span className="text-brand-light/30 text-sm">Image coming soon</span>
+                    <div className="rounded-2xl h-64 md:h-80 overflow-hidden shadow-xl">
+                        <img src="post-home-picture.png" alt='GPS with a route on it' className='h-full w-full object-cover object-center' />
                     </div>
 
                     {/* Texto derecha */}

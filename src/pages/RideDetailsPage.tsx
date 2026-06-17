@@ -5,6 +5,7 @@ import { useGetJoined } from "../hooks/useGetJoined"
 import RideMap from "../features/map/RideMap"
 import FormJoin from "../components/FormJoin"
 import { JoinedRide } from "../types/joined_ride_type"
+import { IoCall } from "react-icons/io5"
 
 export default function RideDetailsPage() {
     
@@ -121,9 +122,14 @@ export default function RideDetailsPage() {
                                         {user.name_user_joined}
                                     </span>
                                 </div>
-                                <span className="text-sm text-brand-dark/60">
-                                {user.contact_user_joined}
-                                </span>
+                                <div className="flex items-center gap-3">
+                                    <span className="text-sm text-brand-dark/60">
+                                    {user.contact_user_joined}
+                                    </span>
+                                    <div className="w-8 h-8 rounded-full bg-brand-dark/20 flex items-center justify-center">
+                                        <IoCall className="h-5 w-5"/>
+                                    </div>
+                                </div>
                             </li>
                             ))}
                         </ul>
