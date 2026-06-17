@@ -57,7 +57,7 @@ export default function Home() {
             {/* Presentation */}
             <section className="bg-brand-navy">
                 <div className="mas-w-5xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                    <div className="rounded-2xl h-64 md:h-80 overflow-hidden shadow-xl">
+                    <div className="rounded-2xl h-80 md: h-86 overflow-hidden shadow-xl">
                         <img src="/presentation-home-picture.jpg" alt='People talking in a car' className='h-full w-full object-cover object-top' />
                     </div>
                     {/* Text */}
@@ -95,7 +95,7 @@ export default function Home() {
                     </div>
 
                     {/* Imagen placeholder derecha */}
-                    <div className="rounded-2xl h-64 md:h-80 overflow-hidden shadow-xl order-first md:order-last">
+                    <div className="rounded-2xl h-80 md:h-[350px] overflow-hidden shadow-xl order-first md:order-last">
                         <img src="browse-home-picture.png" alt="Cars on the route" className="h-full w-full object-cover object-center" />
                     </div>
                 </div>
@@ -106,7 +106,7 @@ export default function Home() {
                 <div className="max-w-5xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
                     {/* Imagen placeholder izquierda */}
-                    <div className="rounded-2xl h-64 md:h-80 overflow-hidden shadow-xl">
+                    <div className="rounded-2xl h-80 md:h-[350px] overflow-hidden shadow-xl">
                         <img src="post-home-picture.png" alt='GPS with a route on it' className='h-full w-full object-cover object-center' />
                     </div>
 
