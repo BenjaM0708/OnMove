@@ -6,8 +6,7 @@ import About from './pages/About'
 import PostRidePage from './pages/PostRidePage'
 import Home from './pages/Home'
 import RideDetailPage from './pages/RideDetailsPage'
-
-
+import Default from './pages/Default'
 
 function App() {
 
@@ -24,6 +23,7 @@ function App() {
               <Route path="/post_ride_page" element={<PostRidePage />} />
               <Route path="/about" element={<About />} />
               <Route path="/rides/:car_ride_id" element={<RideDetailPage />} />
+              <Route path="*" element={<Default />} />
             </Routes>
           </main>
         </div>
