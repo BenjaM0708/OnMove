@@ -4,6 +4,7 @@ import { useGeolocation } from '../../hooks/useGeolocation'
 import { useGetRides } from '../../hooks/useGetRides'
 import { Link } from 'react-router-dom'
 import { IoCloseCircle } from 'react-icons/io5'
+import { funcAngArrow } from '../../functions/funcAngArrow'
 
 // Use a loose type for libraries to avoid mismatches with @react-google-maps/api Library type
 const libraries: any[] = ['places']
@@ -118,6 +119,7 @@ function Map() {
         />
 
         {rideData.map((ride: any) => (
+          //funcAngArrow(ride.origin_location, ride.destination_location)
           <Marker
           key={ride.car_ride_id}
           onClick={() => setInfoSelected(ride)}
@@ -125,6 +127,24 @@ function Map() {
             lat:ride.origin_location_lat,
             lng:ride.origin_location_long
           }}
+          icon={{
+          path: window.google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+          fillColor: "#2E4A62",    
+          fillOpacity: 0.9,        
+          scale: 6,                
+          strokeColor: "#E5AA1E",  
+          strokeWeight: 2,
+          rotation: funcAngArrow(
+            {
+              lat: Number(ride.origin_location_lat),
+              lng: Number(ride.origin_location_long),
+            },
+            {
+              lat: Number(ride.destination_location_lat),
+              lng: Number(ride.destination_location_long),
+            }
+          )
+              }}
           />
         ))}
 
