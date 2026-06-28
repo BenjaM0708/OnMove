@@ -7,6 +7,7 @@ import PostRidePage from './pages/PostRidePage'
 import Home from './pages/Home'
 import RideDetailPage from './pages/RideDetailsPage'
 import Default from './pages/Default'
+import Footer from './components/Footer'
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
               <Route path="*" element={<Default />} />
             </Routes>
           </main>
+          <Footer />
         </div>
       </BrowserRouter>
     </>

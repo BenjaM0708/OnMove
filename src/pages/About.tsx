@@ -17,7 +17,7 @@ export default function About() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
           {/* Photo */}
-          <div className="rounded-2xl overflow-hidden border border-brand-dark/10 shadow-sm h-80 bg-brand-navy/10 flex items-center justify-center">
+          <div className="rounded-2xl overflow-hidden border border-brand-dark/10 shadow-2xl h-80 bg-brand-navy/10 flex items-center justify-center">
             <img src='/about-personal-picture.jpg' alt="Benjamin's Personal photo" className="object-cover" />
           </div>
 
@@ -36,36 +36,37 @@ export default function About() {
               My desire is to continue growing as a developer, keep learning, and create solutions that address real needs.
             </p>
           </div>
+        </div>
 
-          <div className="flex items-center justify-center gap-3">
-            <button className="mt-2 w-fit bg-brand-gold text-brand-light text-sm font-medium px-6 py-3 rounded-md hover:bg-brand-gold/80 transition-colors shadow-xl">
-              <a href="https://github.com/BenjaM0708" target="_blank" className="flex items-center">
+        <div className="flex flex-col items-center justify-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 items-center gap-2 mt-4">
+            <button className="mt-2 w-[130px] bg-brand-gold text-brand-light text-sm text-center font-medium px-6 py-3 rounded-md hover:bg-brand-gold/80 transition-colors shadow-xl">
+              <a href="https://github.com/BenjaM0708" target="_blank" className="flex items-center justify-center">
                 GitHub
                 <IoLogoGithub className="h-5 w-5 pl-1" />
               </a>
             </button>
 
-            <button className="mt-2 w-fit bg-brand-gold text-brand-light text-sm font-medium px-6 py-3 rounded-md hover:bg-brand-gold/80 transition-colors shadow-xl">
-              <a href="https://www.linkedin.com/in/benjamin-mu%C3%B1oz-116a06354/" target="_blank" className="flex items-center pl-1">
+            <button className="mt-2 w-[130px] bg-brand-gold text-brand-light text-sm font-medium text-center px-6 py-3 rounded-md hover:bg-brand-gold/80 transition-colors shadow-xl">
+              <a href="https://www.linkedin.com/in/benjamin-mu%C3%B1oz-116a06354/" target="_blank" className="flex items-center justify-center">
                 Linkedin
                 <IoLogoLinkedin className="h-5 w-5 pl-1" />
               </a>
             </button>
 
-            <button className="mt-2 w-fit bg-brand-gold text-brand-light text-sm font-medium px-6 py-3 rounded-md hover:bg-brand-gold/80 transition-colors shadow-xl">
-              <a href="https://wa.me/34614668536" target="_blank" className='flex items-center'>
+            <button className="mt-2 w-[130px] bg-brand-gold text-brand-light text-sm font-medium text-center px-6 py-3 rounded-md hover:bg-brand-gold/80 transition-colors shadow-xl">
+              <a href="https://wa.me/34614668536" target="_blank" className='flex items-center justify-center'>
                 WhatApp
                 <IoLogoWhatsapp className="h-5 w-5 pl-1" />
               </a>
             </button>
 
-            <button className="mt-2 w-fit bg-brand-gold text-brand-light text-sm font-medium px-6 py-3 rounded-md hover:bg-brand-gold/80 transition-colors shadow-xl">
-              <a href="https://mail.google.com/mail/?view=cm&to=benjamunozja@gmail.com&su=Consulta%20desde%20mi%20web&body=Hola,%20te%20escribo%20desde%20tu%20página%20para%20contactarte" target="_blank" className="flex items-center">
+            <button className="mt-2 w-[130px] bg-brand-gold text-brand-light text-sm font-medium text-center px-6 py-3 rounded-md hover:bg-brand-gold/80 transition-colors shadow-xl">
+              <a href="https://mail.google.com/mail/?view=cm&to=benjamunozja@gmail.com&su=Consulta%20desde%20mi%20web&body=Hola,%20te%20escribo%20desde%20tu%20página%20para%20contactarte" target="_blank" className="flex items-center justify-center">
                 Gmail
                 <IoLogoGoogle className="h-5 w-5 pl-1" />
               </a>
             </button>
-
           </div>
         </div>
 

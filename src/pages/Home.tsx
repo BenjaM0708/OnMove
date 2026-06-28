@@ -172,11 +172,11 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* Footer */}
+            {/* Footer 
             <footer className="bg-brand-dark">
                 <div className="max-w-5xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
 
-                    {/* Logo y copyright */}
+                    {/* Logo y copyright 
                     <div className="flex items-center gap-2">
                         <div className="w-8 h-8 rounded-full bg-brand-light flex items-center justify-center">
                             <img src="/faviconOnmoveClean.png" alt="OnMove logo" className="h-6 w-auto" />
@@ -185,7 +185,7 @@ export default function Home() {
                         <span className="text-brand-light/40 text-sm ml-2">© 2026</span>
                     </div>
 
-                    {/* Links */}
+                    {/* Links 
                     <div className="flex items-center gap-6">
                         <Link to="/terms" className="text-brand-light/60 text-sm hover:text-brand-light transition-colors">
                             Terms & Conditions
@@ -197,6 +197,7 @@ export default function Home() {
 
                 </div>
             </footer>
+            */}
 
         </div>
     )
