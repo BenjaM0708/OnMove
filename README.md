@@ -1,6 +1,6 @@
 # OnMove
 
-![OnMove Logo](https://onmove.online/Gold-Onmove.png)
+![OnMove Logo](https://onmove.online/favicononmove.png)
 
 **OnMove** is a community-driven ride-sharing web app built as a personal learning project. The idea is simple — connect people heading the same way, share the journey, and make it free.
 
