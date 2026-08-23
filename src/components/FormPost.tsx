@@ -21,7 +21,6 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
         if(flowOnClickAdd === 'done'){
             await submitFunction(e)
             resetLocationInfo()
-           /* alert("Ride Posted Successfully")*/
             return
         }
         // if not done, prompt user to select origin and destination

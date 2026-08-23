@@ -139,10 +139,19 @@ export default function RideDetailsPage() {
                 {/* Form */}
                 
                 <div className="border border-brand-dark/10 rounded-lg p-6 bg-white shadow-sm">
-                    <h2 className="font-display text-lg font-semibold text-brand-navy mb-4">
-                        Join
-                    </h2>
-                    <FormJoin id={car_ride_id} reff={setReload} /> 
+                    {seatCounter == 0 ? (
+                         <p className="text-brand-dark/50 text-sm">
+                            This Ride is already Full!
+                        </p>
+                    ) : (
+                        <div>
+                            <h2 className="font-display text-lg font-semibold text-brand-navy mb-4">
+                                Join
+                            </h2>
+                            <FormJoin id={car_ride_id} reff={setReload} /> 
+                        </div>
+                    )}
+                    
                 </div>
                 </div>
 
