@@ -139,8 +139,8 @@ export default function RideDetailsPage() {
                 {/* Form */}
                 
                 <div className="border border-brand-dark/10 rounded-lg p-6 bg-white shadow-sm">
-                    {seatCounter == 0 ? (
-                         <p className="text-brand-dark/50 text-sm">
+                    {seatCounter == 0 || seatCounter < 0 ? (
+                         <p className="text-brand-dark/90 text-sm text-center">
                             This Ride is already Full!
                         </p>
                     ) : (
