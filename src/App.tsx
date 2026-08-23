@@ -8,12 +8,14 @@ import Home from './pages/Home'
 import RideDetailPage from './pages/RideDetailsPage'
 import Default from './pages/Default'
 import Footer from './components/Footer'
+import { ScrollTop } from './components/ScrollTop'
 
 function App() {
 
   return (
     <>
      <BrowserRouter>
+        <ScrollTop />
         <div className="bg-brand-cream min-h-screen font-body">
           <Navbar />
           <main>
