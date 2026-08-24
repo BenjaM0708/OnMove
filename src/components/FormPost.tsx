@@ -1,12 +1,12 @@
 import React, { JSX, useState } from 'react'
 import MiniMap from '../features/map/MiniMap'
-import { IoCheckmarkCircle, IoReloadCircle, IoReload } from "react-icons/io5";
+import { IoCheckmarkCircle, IoReload } from "react-icons/io5";
 
 type submitFunction = (e: React.FormEvent<HTMLFormElement>) => any
 
 export default function FormPost({ submitFunction, uploadCoordFunction } : {submitFunction: submitFunction, uploadCoordFunction: any} ): JSX.Element {
 
-    //Controlthe flow in OnclickAdd
+    //Control the flow in OnclickAdd
     const [flowOnClickAdd, setFlowOnClickAdd] = React.useState<'origin' | 'destination' | 'done'>('origin')
 
     //Reset function to location object
@@ -32,6 +32,10 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
             return
         }
     }
+
+    //Inputs manage
+    const [ dirInputOrin, setDirInputOrin ] = useState<string>('')
+    const [ dirInputDest, setDirInputDest ] = useState<string>('')
 
     return(
         <div className="min-h-screen bg-brand-light pt-20 px-6">
@@ -60,6 +64,8 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
                                 flowInfo={flowOnClickAdd}
                                 flowInfoFunction={setFlowOnClickAdd}
                                 resetLocation={setResetLocationInfo}
+                                userOrinSearch={dirInputOrin}
+                                userDestSearch={dirInputDest}
                             />
                         </div>
 
@@ -121,14 +127,19 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
 
                 <div className="flex flex-col gap-1">
                     <label className="text-sm font-medium text-brand-dark">
-                    Origin Name
+                    Origin Place
                     </label>
                     <div className="grid grid-cols-5 gap-1">
                         <input
                         type="text"
                         name="origin"
+                        value={dirInputOrin}
                         onFocus={()=>setInputOriginStatus(true)}
-                        onBlur={()=>setInputOriginStatus(false)}
+                        onChange={(e)=>setDirInputOrin(e.target.value)}
+                        onBlur={()=>{
+                            setInputOriginStatus(false)
+                            
+                        }}
                         required
                         placeholder="Puerta de Toledo"
                         className="col-span-4 border border-brand-dark/20 rounded-md px-4 py-3 text-sm text-brand-dark bg-white focus:outline-none focus:border-brand-navy transition-colors"
@@ -143,13 +154,15 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
 
                 <div className="flex flex-col gap-1">
                     <label className="text-sm font-medium text-brand-dark">
-                    Destination Name
+                    Destination Place
                     </label>
                     <div className="grid grid-cols-5 gap-1">
                         <input
                         type="text"
                         name="destination"
+                        value={dirInputDest}
                         onFocus={()=>setInputDestinationStatus(true)}
+                        onChange={(e)=>setDirInputDest(e.target.value)}
                         onBlur={()=>setInputDestinationStatus(false)}
                         required
                         placeholder="Gran Vía"
