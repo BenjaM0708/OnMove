@@ -1,4 +1,4 @@
-import React, { JSX, useEffect } from 'react'
+import React, { JSX, useEffect, useRef } from 'react'
 import { GoogleMap, InfoWindow, Marker, useJsApiLoader } from '@react-google-maps/api'
 import { useGeolocation } from '../../hooks/useGeolocation'
 
@@ -113,6 +113,10 @@ function MiniMap({ uploadCoordFunction, flowInfo, flowInfoFunction, resetLocatio
 
 
 console.log("This is coordObject and status flow", coordObject, flowInfo)
+
+  //Coord search
+
+
 
   //Map Render
 
