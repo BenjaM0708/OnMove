@@ -1,6 +1,7 @@
 import React, { JSX, useEffect, useRef } from 'react'
 import { GoogleMap, InfoWindow, Marker, useJsApiLoader } from '@react-google-maps/api'
 import { useGeolocation } from '../../hooks/useGeolocation'
+import { geocoderStrigToCoor } from '../../functions/funcGeocoder'
 
 type ObjLocationInfo = {
   origin?: {lat: number, lng: number}
@@ -116,7 +117,30 @@ console.log("This is coordObject and status flow", coordObject, flowInfo)
 
   //Coord search
 
+  const [userPlace, setUserPlace] = React.useState<any>(null)
 
+  useEffect(()=> {
+    if(!isLoaded || !userOrinSearch.trim()) {
+      setUserPlace(null)
+      return
+    }
+
+    const searchUserPlace = async () => {
+      try {
+        const search = await geocoderStrigToCoor(userOrinSearch)
+        setUserPlace(search)
+        
+      } catch (error) {
+          setUserPlace(null)
+          console.log(error)
+      }
+    }
+    
+    searchUserPlace()
+
+  },[isLoaded, userOrinSearch])
+
+  console.log(userPlace)
 
   //Map Render
 
@@ -199,8 +223,8 @@ console.log("This is coordObject and status flow", coordObject, flowInfo)
       </GoogleMap>
     </>
   ) : (
-    <div className='flex justify-center items-center'>
-        <h2 className='text-center'>Loading...</h2>
+    <div className='flex justify-center items-center h-screen w-screen'>
+        <p className='text-center text-xl'>Loading...</p>
     </div>
   )
 }

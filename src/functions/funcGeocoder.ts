@@ -1,67 +1,55 @@
-import { GoogleMap } from "@react-google-maps/api";
-import { useState, useRef, useEffect } from "react";
-
-type CoordsEnterAsString = {
+export type CoordsEnterAsString = {
     location?: {lat: number, lng: number} | null,
     placeId?: string,
     formattedAddress?: string,
     addressComponents?: google.maps.GeocoderAddressComponent[]
 }
 
- let geocoderObject: CoordsEnterAsString = {
-            location: null,
-            placeId: '',
-            formattedAddress: '',
-            addressComponents: []
-        }
+//Coords as String to LatLng Function
+export const geocoderStrigToCoor = (addressString: string): Promise<CoordsEnterAsString> => {
+    const geocoder = new window.google.maps.Geocoder()
 
-export const funcGeocoder = (addressString: string, addressCoord: {lat:number, lng:number}) => {
-
-    if((!addressString && !addressCoord) || (addressString && addressCoord)) return alert('Format is not Valided')
-
-    //Instance Created
-    const geocoderRef = useRef<google.maps.Geocoder | null>(null)
-    geocoderRef.current = new window.google.maps.Geocoder()
-
-    //Coords as String to LatLng
-    if(addressString && !addressCoord){
-        
-        geocoderRef.current?.geocode(
+    return new Promise((resolve, reject) => {
+        geocoder.geocode(
             { address: addressString, componentRestrictions: { country: 'es' } },
             (results, status) => {
-              if(status !== 'OK' && !results?.[0]) return alert("Somethig wrong happened")
-              if (status === 'OK' && results?.[0]) {
-                const loc = results[0].geometry.location
-
-                geocoderObject = {
-                    location: {lat: loc.lat(), lng: loc.lng()},
-                    placeId: results[0].place_id,
-                    formattedAddress: results[0].formatted_address,
-                    addressComponents: results[0].address_components
+                if (status !== 'OK' || !results?.[0]) {
+                    reject(new Error(`Place not found: ${status}`))
+                    return
                 }
-              }
+
+                const result = results[0]
+                const loc = result.geometry.location
+                resolve({
+                    location: {lat: loc.lat(), lng: loc.lng()},
+                    placeId: result.place_id,
+                    formattedAddress: result.formatted_address,
+                    addressComponents: result.address_components
+                })
             }
         )
-    }
+    })
+}
 
-    //Coords as LanLng to String
-    if(!addressString && addressCoord){
+export const geocoderCoorToString = (addressCoord: {lat:number, lng:number}): Promise<CoordsEnterAsString> => {
+    const geocoder = new window.google.maps.Geocoder()
 
-        geocoderRef.current?.geocode(
+    return new Promise((resolve, reject) => {
+        geocoder.geocode(
             { location: { lat: addressCoord.lat, lng: addressCoord.lng } },
             (results, status) => {
-                if(status !== 'OK' && !results?.[0]) return alert("Somethig wrong happened")
-                if (status === 'OK' && results?.[0]) {
-                    geocoderObject = {
-                    placeId: results[0].place_id,
-                    formattedAddress: results[0].formatted_address,
-                    addressComponents: results[0].address_components
+                if (status !== 'OK' || !results?.[0]) {
+                    reject(new Error(`Place not found: ${status}`))
+                    return
                 }
-              }
+
+                const result = results[0]
+                resolve({
+                    placeId: result.place_id,
+                    formattedAddress: result.formatted_address,
+                    addressComponents: result.address_components
+                })
             }
         )
-    }
-
-    console.log(geocoderObject)
-    return geocoderObject
+    })
 }
