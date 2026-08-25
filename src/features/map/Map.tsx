@@ -131,7 +131,7 @@ function Map() {
           path: window.google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
           fillColor: "#2E4A62",    
           fillOpacity: 0.9,        
-          scale: 6,                
+          scale: 5,                
           strokeColor: "#E5AA1E",  
           strokeWeight: 2,
           rotation: funcAngArrow(

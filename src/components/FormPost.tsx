@@ -37,6 +37,9 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
     const [ dirInputOrin, setDirInputOrin ] = useState<string>('')
     const [ dirInputDest, setDirInputDest ] = useState<string>('')
 
+    const [ originSearch, setOriginSearch ] = useState<string>('')
+    const [ destSearch, setDestSearch ] = useState<string>('')
+
     return(
         <div className="min-h-screen bg-brand-light pt-20 px-6">
           <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start py-16">
@@ -64,8 +67,8 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
                                 flowInfo={flowOnClickAdd}
                                 flowInfoFunction={setFlowOnClickAdd}
                                 resetLocation={setResetLocationInfo}
-                                userOrinSearch={dirInputOrin}
-                                userDestSearch={dirInputDest}
+                                userOrinSearch={originSearch}
+                                userDestSearch={destSearch}
                             />
                         </div>
 
@@ -138,7 +141,7 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
                         onChange={(e)=>setDirInputOrin(e.target.value)}
                         onBlur={()=>{
                             setInputOriginStatus(false)
-                            
+                            setOriginSearch(dirInputOrin)
                         }}
                         required
                         placeholder="Puerta de Toledo"
@@ -163,7 +166,10 @@ export default function FormPost({ submitFunction, uploadCoordFunction } : {subm
                         value={dirInputDest}
                         onFocus={()=>setInputDestinationStatus(true)}
                         onChange={(e)=>setDirInputDest(e.target.value)}
-                        onBlur={()=>setInputDestinationStatus(false)}
+                        onBlur={()=>{
+                            setInputDestinationStatus(false)
+                            setDestSearch(dirInputDest)
+                        }}
                         required
                         placeholder="Gran Vía"
                         className="col-span-4 border border-brand-dark/20 rounded-md px-4 py-3 text-sm text-brand-dark bg-white focus:outline-none focus:border-brand-navy transition-colors"

@@ -1,7 +1,7 @@
 import React, { JSX, useEffect, useRef } from 'react'
 import { GoogleMap, InfoWindow, Marker, useJsApiLoader } from '@react-google-maps/api'
 import { useGeolocation } from '../../hooks/useGeolocation'
-import { geocoderStrigToCoor } from '../../functions/funcGeocoder'
+import { geocoderStrigToCoor, CoordsEnterAsString } from '../../functions/funcGeocoder'
 
 type ObjLocationInfo = {
   origin?: {lat: number, lng: number}
@@ -33,12 +33,14 @@ function MiniMap({ uploadCoordFunction, flowInfo, flowInfoFunction, resetLocatio
 
   const center = coordinates || defaultCenter
 
+  const mapRef= React.useRef<google.maps.Map | null>(null) //Save the map in our mapRef
   const [map, setMap] = React.useState(null)
 
-  const onLoad = React.useCallback(function callback(map: any) {
+  const onLoad = React.useCallback((map: any) => {
     
     const bounds = new window.google.maps.LatLngBounds(center)
-    //map.fitBounds(bounds)
+    mapRef.current = map
+    
     setMap(map)
   }, [center])
 
@@ -115,23 +117,37 @@ function MiniMap({ uploadCoordFunction, flowInfo, flowInfoFunction, resetLocatio
 
 console.log("This is coordObject and status flow", coordObject, flowInfo)
 
-  //Coord search
+  //Coord's Searching for both Locations
 
-  const [userPlace, setUserPlace] = React.useState<any>(null)
+  //Origin Location
+
+  const [ userPlaceOgn, setUserPlaceOgn ] = React.useState<CoordsEnterAsString | null>(null)
 
   useEffect(()=> {
     if(!isLoaded || !userOrinSearch.trim()) {
-      setUserPlace(null)
+      setUserPlaceOgn(null)
       return
     }
 
     const searchUserPlace = async () => {
       try {
         const search = await geocoderStrigToCoor(userOrinSearch)
-        setUserPlace(search)
+        setUserPlaceOgn(search)
+
+        //New coordinates to recenter the map
+        if(mapRef.current && search.location){
+          const newCoords = {
+            lat: search.location.lat,
+            lng: search.location.lng
+          }
+          mapRef.current.panTo(newCoords)
+          mapRef.current.setZoom(12)
+       } else {
+        return console.log('Something failed traying to get the coordinates')
+       }
         
       } catch (error) {
-          setUserPlace(null)
+          setUserPlaceOgn(null)
           console.log(error)
       }
     }
@@ -140,7 +156,46 @@ console.log("This is coordObject and status flow", coordObject, flowInfo)
 
   },[isLoaded, userOrinSearch])
 
-  console.log(userPlace)
+  console.log(userPlaceOgn)
+
+  //Destination Location
+
+  const [userPlaceDes, setUserPlaceDes] = React.useState<any>(null)
+
+  useEffect(()=> {
+    if(!isLoaded || !userDestSearch.trim()) {
+      setUserPlaceDes(null)
+      return
+    }
+
+    //The funtions's name is the same but are differents functions
+    const searchUserPlace = async () => {
+      try {
+        const search = await geocoderStrigToCoor(userDestSearch)
+        setUserPlaceDes(search)
+        
+        //New coordinates to recenter the map
+         if(mapRef.current && search.location){
+          const newCoords = {
+            lat: search.location.lat,
+            lng: search.location.lng
+          }
+          mapRef.current.panTo(newCoords)
+          mapRef.current.setZoom(12)
+
+          } else {
+            return console.log('Something failed traying to get the coordinates')
+          }
+
+      } catch (error) {
+          setUserPlaceDes(null)
+          console.log(error)
+      }
+    }
+    
+    searchUserPlace()
+
+  },[isLoaded, userDestSearch])
 
   //Map Render
 
@@ -197,10 +252,10 @@ console.log("This is coordObject and status flow", coordObject, flowInfo)
                   onLoad={onLoadMarker}
                   icon={{
                     path: window.google.maps.SymbolPath.CIRCLE,
-                    fillColor: "#E5AA1E",    
+                    fillColor: "#3C4043",    
                     fillOpacity: 0.9,        
                     scale: 8,                
-                    strokeColor: "#7d0909",  
+                    strokeColor: "#E5AA1E",  
                     strokeWeight: 2,  
                   }}
                 />
@@ -211,10 +266,10 @@ console.log("This is coordObject and status flow", coordObject, flowInfo)
                   onLoad={onLoadMarker}
                   icon={{
                     path: window.google.maps.SymbolPath.CIRCLE,
-                    fillColor: "#233047",    
+                    fillColor: "#3C4043",    
                     fillOpacity: 0.9,        
                     scale: 8,                
-                    strokeColor: "#7d0909",  
+                    strokeColor: "#E5AA1E",  
                     strokeWeight: 2,  
                   }}
                 />
