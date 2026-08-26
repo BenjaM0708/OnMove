@@ -1,4 +1,4 @@
-export type CoordsEnterAsString = {
+export type CoordsEnter = {
     location?: {lat: number, lng: number} | null,
     placeId?: string,
     formattedAddress?: string,
@@ -6,7 +6,7 @@ export type CoordsEnterAsString = {
 }
 
 //Coords as String to LatLng Function
-export const geocoderStrigToCoor = (addressString: string): Promise<CoordsEnterAsString> => {
+export const geocoderStrigToCoor = (addressString: string): Promise<CoordsEnter> => {
     const geocoder = new window.google.maps.Geocoder()
 
     return new Promise((resolve, reject) => {
@@ -31,7 +31,7 @@ export const geocoderStrigToCoor = (addressString: string): Promise<CoordsEnterA
     })
 }
 
-export const geocoderCoorToString = (addressCoord: {lat:number, lng:number}): Promise<CoordsEnterAsString> => {
+export const geocoderCoorToString = (addressCoord: {lat:number, lng:number}): Promise<CoordsEnter> => {
     const geocoder = new window.google.maps.Geocoder()
 
     return new Promise((resolve, reject) => {

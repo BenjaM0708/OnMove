@@ -1,7 +1,7 @@
 import React, { JSX, useEffect, useRef } from 'react'
 import { GoogleMap, InfoWindow, Marker, useJsApiLoader } from '@react-google-maps/api'
 import { useGeolocation } from '../../hooks/useGeolocation'
-import { geocoderStrigToCoor, CoordsEnterAsString } from '../../functions/funcGeocoder'
+import { geocoderStrigToCoor, geocoderCoorToString, CoordsEnter } from '../../functions/funcGeocoder'
 
 type ObjLocationInfo = {
   origin?: {lat: number, lng: number}
@@ -121,7 +121,7 @@ console.log("This is coordObject and status flow", coordObject, flowInfo)
 
   //Origin Location
 
-  const [ userPlaceOgn, setUserPlaceOgn ] = React.useState<CoordsEnterAsString | null>(null)
+  const [ userPlaceOgn, setUserPlaceOgn ] = React.useState<CoordsEnter | null>(null)
 
   useEffect(()=> {
     if(!isLoaded || !userOrinSearch.trim()) {
@@ -141,7 +141,7 @@ console.log("This is coordObject and status flow", coordObject, flowInfo)
             lng: search.location.lng
           }
           mapRef.current.panTo(newCoords)
-          mapRef.current.setZoom(12)
+          mapRef.current.setZoom(16)
        } else {
         return console.log('Something failed traying to get the coordinates')
        }
@@ -181,7 +181,7 @@ console.log("This is coordObject and status flow", coordObject, flowInfo)
             lng: search.location.lng
           }
           mapRef.current.panTo(newCoords)
-          mapRef.current.setZoom(12)
+          mapRef.current.setZoom(16)
 
           } else {
             return console.log('Something failed traying to get the coordinates')
@@ -196,6 +196,28 @@ console.log("This is coordObject and status flow", coordObject, flowInfo)
     searchUserPlace()
 
   },[isLoaded, userDestSearch])
+
+  //Addres Adition
+
+  const [ addressOnClick, setAddressOnClick ] = React.useState<CoordsEnter | null>(null)
+
+  useEffect(()=>{
+    if(!coordOnClick) return 
+
+    const getAddressObj = async () => {
+      try{
+        const searchAddress = await geocoderCoorToString(coordOnClick)
+        setAddressOnClick(searchAddress)
+
+      } catch(error){
+          setAddressOnClick(null)
+          console.log('Unknow Direction')
+      }
+    }
+
+    getAddressObj()
+
+  },[coordOnClick])
 
   //Map Render
 
@@ -237,11 +259,16 @@ console.log("This is coordObject and status flow", coordObject, flowInfo)
               position={coordOnClick}
               options={{
                 headerDisabled: true
-              }}>
-              <button  className="mt-2 bg-brand-navy text-brand-light font-medium text-sm py-2 px-6 ml-1 mb-1 rounded-md hover:bg-brand-navy/80 transition-colors"
+            }}>
+             <>
+              <div className='flex flex-col gap-1 items-center'>
+                <p className='text-[12px] text-sm text-brand-navy font-medium'>{addressOnClick?.formattedAddress}</p>
+                <button  className="mt-2 w-[50%] bg-brand-navy text-brand-light font-medium text-[12px] py-2 px-5 ml-1 mb-1 rounded-md hover:bg-brand-navy/80 transition-colors"
                   onClick={onClickAdd}>
-                  Add
-              </button>
+                    Add
+                </button>
+              </div>
+             </>
             </InfoWindow>
           </>
         )}
